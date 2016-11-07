@@ -37,7 +37,6 @@
 
 		<property name="annotatedClasses">
 			<list>
-				<value>by.ntck.sten.model.Book</value>
 				<value>by.ntck.sten.model.User</value>
 				<value>by.ntck.sten.model.Kladovshik</value>
 				<value>by.ntck.sten.model.Sklad</value>
@@ -67,12 +66,6 @@
 	</bean>
 
 	<!--здесь будем описывать бины(у тебя модели) -->
-	<bean id="bookDAO" class="by.ntck.sten.dao.impls.BookDaoImpl">
-		<property name="sessionFactory" ref="hibernate" />
-	</bean>
-	<bean id="bookService" class="by.ntck.sten.service.impls.BookServiceImpl">
-		<property name="dao" ref="bookDAO" />
-	</bean>
 	
 	<bean id="userDAO" class="by.ntck.sten.dao.impls.UserDaoImpl">
 		<property name="sessionFactory" ref="hibernate" />

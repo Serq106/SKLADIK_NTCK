@@ -7,8 +7,6 @@
     <title>Books Page</title>    
 </head>
 <body>
-<a href="/weew/book/books">Back to main menu</a>
-<h1>Book List</h1>
 
 <form action="${pageContext.servletContext.contextPath}/sklad/edit" method="post">
 	<input type="text" name="naim" value="${findSklad.naim }"/>

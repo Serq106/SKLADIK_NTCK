@@ -42,7 +42,7 @@
         </tr>
         <c:forEach items="${listKladovschikSklad}" var="list">
             <tr>
-                <td>${list.id}</td>
+                <td><a href="${pageContext.servletContext.contextPath}/sklad/sklad_data/${list.id}">${list.id}</a></td>
                 <td>${list.naim}</td>
                 <td>${list.edin}</td>
                 <td>${list.kolvo}</td>
@@ -63,8 +63,7 @@
                 <td><a href ="${pageContext.servletContext.contextPath}/sklad/remove/${list.id}">Delete</a></td> 
              </tr>
         </c:forEach>
-    </table>
-    
+    </table>    
 
     	<p>${kladovshik.login}</p>    
 

@@ -40,6 +40,14 @@ public class SkladController {
 		this.skladService = skladService;
 	}
 	
+	@RequestMapping(value = "/sklad_data/{id}")
+	public String getById(@PathVariable("id") int id, Model model, HttpServletRequest request){
+		model.addAttribute("sklad", new Sklad());
+		model.addAttribute("sklads", skladService.getById(id));
+
+		return "sklad/sklad_data";
+	}
+	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(@RequestParam("id") int id, @RequestParam("bismt") String bismt, @RequestParam("close_kadr") String close_kadr, 
 			@RequestParam("edin") String edin, @RequestParam("imports") String imports, @RequestParam("in_bd") String in_bd, 

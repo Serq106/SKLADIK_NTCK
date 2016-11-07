@@ -9,7 +9,7 @@
 
 <html>
 <head>
-  <title>BookData</title>
+  <title>Кладовщик</title>
 
 </head>
 <body>

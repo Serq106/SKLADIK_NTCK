@@ -11,23 +11,45 @@
 
 </head>
 <body>
-<a href="/weew/book/books">Back to main menu</a>
-<h1>Book Details</h1>
-
-<p>eee</p> 
-<table class="tg">
-  <tr>
-    <th width="80">ID</th>
-    <th width="120">Title</th>
-    <th width="120">Author</th>
-    <th width="120">Price</th>
-  </tr>
-  <tr>
-    <td>${findBook.id}</td>
-    <td>${findBook.bookTitle}</td>
-    <td>${findBook.bookAuthor}</td>
-    <td>${findBook.price/100}${findBook.price%100}</td>
-  </tr>
-</table>
+	<table class="tg">
+        <tr>
+            <th width="80">Ид</th>
+            <th width="120">имя</th>
+            <th width="120">edin</th>
+            <th width="120">kolvo</th>
+            <th width="60">sklad_key</th>
+            <th width="60">isdel</th>
+            <th width="80">stelach</th>
+            <th width="120">yatheika</th>
+            <th width="120">used</th>
+            <th width="120">price</th>
+            <th width="60">in_bd</th>
+            <th width="60">tolling</th>
+            <th width="120">testing</th>
+            <th width="120">imports</th>
+            <th width="120">close_kadr</th>
+            <th width="60">sap_kod</th>
+            <th width="60">bismt</th>
+        </tr>
+        <tr>
+            <td>${sklads.id}</td>
+            <td>${sklads.naim}</td>
+            <td>${sklads.edin}</td>
+            <td>${sklads.kolvo}</td>
+            <td>${sklads.sklad_key}</td>
+            <td>${sklads.isdel}</td>
+            <td>${sklads.stelach}</td>
+            <td>${sklads.yatheika}</td>
+            <td>${sklads.used}</td>
+            <td>${sklads.price}</td>                
+            <td>${sklads.in_bd}</td>
+            <td>${sklads.tolling}</td>
+            <td>${sklads.testing}</td>
+            <td>${sklads.imports}</td>
+            <td>${sklads.close_kadr}</td>
+            <td>${sklads.sap_kod}</td>
+            <td>${sklads.bismt}</td>
+         </tr>
+    </table>  
 </body>
 </html>
