@@ -73,7 +73,6 @@ public class Kladovshik {
 		builder.append(login);
 		builder.append(", password=");
 		builder.append(password);
-		builder.append(", id_user=");
 		builder.append("]");
 		return builder.toString();
 	}

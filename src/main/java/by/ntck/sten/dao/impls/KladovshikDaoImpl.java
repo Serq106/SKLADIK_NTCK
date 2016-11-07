@@ -105,5 +105,19 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 			LOG.info("kladovshikBySklad successfully loaded. kladovshikBySklad detalis: ");
 			return kladovshikList;
 		}
+
+	@Override
+	public List<Sklad> SkladBykladovshik(int id_kladovshok) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query q = session.createQuery(
+				"select s "
+				   + " from Sklad s INNER JOIN s.kladovshik kladovshik"
+				   + " where kladovshik.id = :kladovshikId "
+				).setLong("kladovshikId", id_kladovshok);
+		List<Sklad> SkladList = q.list();
+		LOG.info("kladovshikBySklad successfully loaded. kladovshikBySklad detalis: ");
+
+		return SkladList;
+	}
 }
 

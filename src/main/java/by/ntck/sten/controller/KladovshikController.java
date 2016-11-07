@@ -1,5 +1,7 @@
 package by.ntck.sten.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,20 +35,23 @@ public class KladovshikController {
 
 	@RequestMapping(value = "/auth", method = RequestMethod.POST)
 	public String login_auth(@RequestParam("login") String login, @RequestParam("password") String password,
-			Model model) {
+			Model model
+			,HttpServletRequest request) {
+		
+	
 		model.addAttribute("kladovshik", new Kladovshik());
 		Kladovshik kladovshik = kladovshikService.login(login, password);
 		model.addAttribute("kladovshik", (kladovshik==null)?"מיי¸ימ¸מימ¸י":kladovshik);
-		
+		request.getSession().setAttribute("kladovshik",kladovshik);
 		LOG.error(kladovshik);
 		if (kladovshik == null) {
 			return "login";
 		} else {
-			return "/login";
+			return "/kladovshik/kladovshik_data";
 		}
 	}
 	
-	@RequestMapping(value = "/kladovshik_data", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/kladovshik_data", method = RequestMethod.POST)
 	public String kladovshik_data(@RequestParam("login") String login, @RequestParam("password") String password,
 			Model model) {
 		model.addAttribute("kladovshik", new Kladovshik());
@@ -59,6 +64,6 @@ public class KladovshikController {
 		} else {
 			return "/kladovshik/kladovshik_data";
 		}
-	}
+	}*/
 
 }

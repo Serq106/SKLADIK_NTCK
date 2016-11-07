@@ -2,19 +2,12 @@ package by.ntck.sten.service.impls;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import by.ntck.sten.dao.IDAO;
 import by.ntck.sten.dao.IKladovshikDao;
 import by.ntck.sten.model.Kladovshik;
 import by.ntck.sten.model.Sklad;
-import by.ntck.sten.model.User;
 import by.ntck.sten.service.IKladovshikService;
 
 @Service
@@ -26,7 +19,6 @@ public class KladovshikServiceImpl implements IKladovshikService{
 		this.dao = dao;
 	}
 		
-
 	@Override
 	public void add(Kladovshik kladovshik) {
 		this.dao.add(kladovshik);		
@@ -59,10 +51,14 @@ public class KladovshikServiceImpl implements IKladovshikService{
 		return this.dao.login(login, password);
 	}
 
-
 	@Override
 	public List<Kladovshik> kladovshikBySklad(int id_sklad) {		
 		return this.dao.kladovshikBySklad(id_sklad);
+	}
+
+	@Override
+	public List<Sklad> SkladBykladovshik(int id_kladovshok) {
+		return this.dao.SkladBykladovshik(id_kladovshok);
 	}
 }
 

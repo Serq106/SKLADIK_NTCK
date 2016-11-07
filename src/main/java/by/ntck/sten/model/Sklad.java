@@ -83,7 +83,7 @@ public class Sklad {
 	@Column(name = "bismt")
 	private String bismt;
 	
-	@ManyToMany(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade= CascadeType.REFRESH)
     @JoinTable(name = "Sklad_SK", 
              joinColumns = { @JoinColumn(name = "sklad_id") }, 
              inverseJoinColumns = { @JoinColumn(name = "kladovshik_id") })
