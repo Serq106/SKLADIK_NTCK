@@ -14,5 +14,4 @@ public interface IBookService {
 	public Book getBookById(int id);
 
 	public List<Book> listBooks();
-
 }

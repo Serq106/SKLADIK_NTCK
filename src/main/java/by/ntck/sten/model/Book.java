@@ -59,7 +59,16 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book{" + "id=" + id + ", bookTitle='" + bookTitle + '\'' + ", bookAuthor='" + bookAuthor + '\'' + ", price=" + price + '}';
+		StringBuilder builder = new StringBuilder();
+		builder.append("Book [id=");
+		builder.append(id);
+		builder.append(", bookTitle=");
+		builder.append(bookTitle);
+		builder.append(", bookAuthor=");
+		builder.append(bookAuthor);
+		builder.append(", price=");
+		builder.append(price);
+		builder.append("]");
+		return builder.toString();
 	}
-
 }

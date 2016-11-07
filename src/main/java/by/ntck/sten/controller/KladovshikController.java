@@ -35,10 +35,7 @@ public class KladovshikController {
 
 	@RequestMapping(value = "/auth", method = RequestMethod.POST)
 	public String login_auth(@RequestParam("login") String login, @RequestParam("password") String password,
-			Model model
-			,HttpServletRequest request) {
-		
-	
+			Model model, HttpServletRequest request) {		
 		model.addAttribute("kladovshik", new Kladovshik());
 		Kladovshik kladovshik = kladovshikService.login(login, password);
 		model.addAttribute("kladovshik", (kladovshik==null)?"מיי¸ימ¸מימ¸י":kladovshik);
@@ -50,20 +47,4 @@ public class KladovshikController {
 			return "/kladovshik/kladovshik_data";
 		}
 	}
-	
-	/*@RequestMapping(value = "/kladovshik_data", method = RequestMethod.POST)
-	public String kladovshik_data(@RequestParam("login") String login, @RequestParam("password") String password,
-			Model model) {
-		model.addAttribute("kladovshik", new Kladovshik());
-		Kladovshik kladovshik = kladovshikService.login(login, password);
-		model.addAttribute("kladovshik", (kladovshik==null)?"מיי¸ימ¸מימ¸י":kladovshik);
-		
-		LOG.error(kladovshik);
-		if (kladovshik == null) {
-			return "login";
-		} else {
-			return "/kladovshik/kladovshik_data";
-		}
-	}*/
-
 }

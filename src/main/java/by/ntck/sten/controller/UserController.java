@@ -29,8 +29,5 @@ public class UserController {
 		model.addAttribute("user", new User());
 		model.addAttribute("findUser", userService.getById(id));
 		return "user/user_data";
-	}
-	
-	//@
-
+	}	
 }

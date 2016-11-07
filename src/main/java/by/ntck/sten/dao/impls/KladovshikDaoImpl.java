@@ -28,7 +28,6 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(kladovshik);
 		LOG.info("Book successfully saved. Book details: " + kladovshik);
-
 	}
 
 	@Override
@@ -36,7 +35,6 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(kladovshik);
 		LOG.info("Book successfully update. Book details: " + kladovshik);
-
 	}
 
 	@Override
@@ -48,7 +46,6 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 			session.delete(kladovshik);
 		}
 		LOG.info("Book successfully removed. Book details: " + kladovshik);
-
 	}
 
 	@Override
@@ -66,11 +63,9 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 		List<Kladovshik> kladovshikList = (List<Kladovshik>) session.createQuery("from Kladovshik").list();
 		for (Kladovshik kladovshik : kladovshikList) {
 			LOG.info("Kladovshik list: " + kladovshik);
-		} //
-
+		}
 		return kladovshikList;
 	}
-
 	
 	@Override
 	public Kladovshik login(String login, String password) {
@@ -87,8 +82,7 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 		{
 			LOG.info("Kladovshik : " + kladovshik);
 			return kladovshik;
-		}
-		
+		}		
 	}
 
 	@Override
@@ -99,8 +93,7 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 			              + " from Kladovshik k INNER JOIN k.sklad sklad"
 			              + " where sklad.id = :skladId "
 			      ).setLong("skladId", id_sklad);
-			          
-			
+			          			
 			List<Kladovshik> kladovshikList = q.list();
 			LOG.info("kladovshikBySklad successfully loaded. kladovshikBySklad detalis: ");
 			return kladovshikList;
@@ -120,4 +113,3 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 		return SkladList;
 	}
 }
-

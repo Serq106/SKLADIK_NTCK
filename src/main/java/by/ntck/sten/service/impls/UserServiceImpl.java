@@ -5,10 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import by.ntck.sten.dao.IDAO;
 import by.ntck.sten.dao.IUserDao;
 import by.ntck.sten.model.User;
-import by.ntck.sten.service.IService;
 import by.ntck.sten.service.IUserService;
 @Service
 @Transactional

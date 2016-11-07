@@ -5,11 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import by.ntck.sten.dao.IDAO;
 import by.ntck.sten.dao.ISkladDao;
 import by.ntck.sten.model.Kladovshik;
 import by.ntck.sten.model.Sklad;
-import by.ntck.sten.service.IService;
 import by.ntck.sten.service.ISkladService;
 
 @Service
@@ -49,8 +47,5 @@ public class SkladServiceImpl implements ISkladService {
 	@Override
 	public List<Kladovshik> kladovshikBySklad(int id_sklad) {
 		return this.daoSklad.kladovshikBySklad(id_sklad);
-	}
-
-
-	
+	}	
 }

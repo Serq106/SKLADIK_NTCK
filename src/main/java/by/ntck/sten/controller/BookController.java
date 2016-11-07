@@ -35,7 +35,6 @@ public class BookController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addBook_(@RequestParam("bookTitle") String bookTitle, @RequestParam("bookAuthor") String bookAuthor, @RequestParam("price") int price, @RequestParam("id") int id) {
-
 		Book book = new Book();
 		book.setBookAuthor(bookAuthor);
 		book.setBookTitle(bookTitle);
@@ -68,7 +67,6 @@ public class BookController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public String editBook(@RequestParam("bookTitle") String bookTitle, @RequestParam("bookAuthor") String bookAuthor, @RequestParam("price") int price, @RequestParam("id") int id) {
-
 		Book book = new Book();
 		book.setBookAuthor(bookAuthor);
 		book.setBookTitle(bookTitle);
@@ -85,5 +83,4 @@ public class BookController {
 
 		return "book/bookdata";
 	}
-
 }

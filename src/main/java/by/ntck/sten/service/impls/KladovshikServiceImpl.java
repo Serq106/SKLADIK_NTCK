@@ -32,7 +32,6 @@ public class KladovshikServiceImpl implements IKladovshikService{
 	@Override
 	public void remove(int id) {
 		 this.dao.remove(id);
-
 	}
 
 	@Override
@@ -42,7 +41,6 @@ public class KladovshikServiceImpl implements IKladovshikService{
 
 	@Override
 	public List<Kladovshik> list() {
-
 		return this.dao.list();
 	}
 	

@@ -2,8 +2,6 @@ package by.ntck.sten.dao.impls;
 
 import java.util.List;
 
-
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -11,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import by.ntck.sten.dao.IDAO;
 import by.ntck.sten.dao.ISkladDao;
 import by.ntck.sten.model.Kladovshik;
 import by.ntck.sten.model.Sklad;

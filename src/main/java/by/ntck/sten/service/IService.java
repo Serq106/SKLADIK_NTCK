@@ -12,5 +12,4 @@ public interface IService<T> {
 	public T getById(int id);
 
 	public List<T> list();
-
 }

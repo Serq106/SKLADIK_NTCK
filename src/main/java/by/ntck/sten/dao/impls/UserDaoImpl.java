@@ -6,11 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import by.ntck.sten.dao.IDAO;
 import by.ntck.sten.dao.IUserDao;
 import by.ntck.sten.model.User;
 
@@ -68,9 +65,7 @@ public class UserDaoImpl implements IUserDao {
 
 		for (User user : userList) {
 			LOG.info("Book list: " + user);
-		} //
-
+		} 
 		return userList;
 	}
-
 }

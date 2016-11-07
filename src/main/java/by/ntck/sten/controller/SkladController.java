@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import by.ntck.sten.model.Sklad;
-import by.ntck.sten.model.Book;
 import by.ntck.sten.model.Kladovshik;
 import by.ntck.sten.service.IKladovshikService;
 import by.ntck.sten.service.IService;
@@ -76,7 +75,6 @@ public class SkladController {
 		skladService.add(sklad);
 		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();
 		return  "redirect:/sklad/sklad_kladovschik/"+ id_kladovshik;// "redirect:"+request.getHeader("referer"); //";
-		
 	}
 
 	@RequestMapping(value = "/sklad_create")
@@ -94,6 +92,7 @@ public class SkladController {
 		
 		return "sklad/sklad_edit";
 	}
+	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public String edit(@RequestParam("id") int id, @RequestParam("bismt") String bismt, @RequestParam("close_kadr") String close_kadr, 
 			@RequestParam("edin") String edin, @RequestParam("imports") String imports, @RequestParam("in_bd") String in_bd, 
@@ -101,7 +100,9 @@ public class SkladController {
 			@RequestParam("naim") String naim, @RequestParam("naim2") String naim2, @RequestParam("price") String price, 
 			@RequestParam("sap_kod") String sap_kod, @RequestParam("sklad_key") int sklad_key, @RequestParam("stelach") String stelach, 
 			@RequestParam("testing") String testing, @RequestParam("tolling") String tolling, @RequestParam("used") String used,
-			@RequestParam("yatheika") String yatheika, Model model) {
+			@RequestParam("yatheika") String yatheika, Model model, HttpServletRequest request) {
+		
+		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();
 		Sklad sklad = new Sklad();
 		sklad.setId(id);
 		sklad.setBismt(bismt);
@@ -122,12 +123,13 @@ public class SkladController {
 		sklad.setTolling(tolling);
 		sklad.setUsed(used);
 		sklad.setYatheika(yatheika);
+		List<Kladovshik> list = new ArrayList<Kladovshik>();		
+		list.add(kladovshikService.getById(id_kladovshik));
+		sklad.setKladovshik( list);
 		skladService.update(sklad);
-		return "redirect:/sklad/sklad_kladovschik/1";
 		
+		return  "redirect:/sklad/sklad_kladovschik/"+ id_kladovshik;// "redirect:"+request.getHeader("referer"); //";
 	}
-	
-	
 	
 	@RequestMapping("/remove/{id}")
 	public String remove(@PathVariable("id") int id, HttpServletRequest request){
@@ -145,17 +147,11 @@ public class SkladController {
 	
 	@RequestMapping(value = "/sklad_kladovschik/{id}", method = RequestMethod.GET)
 	public String sklad_kladovschik(@PathVariable("id") int id,Model model){
-		/*model.addAttribute("sklad", new Sklad());
-		Sklad sklad= this.skladService.getById(id);
-		model.addAttribute("listSkladKladovschik", this.kladovshikService.kladovshikBySklad(sklad.getId()));*/
-		
-		model.addAttribute("kladovshik", new Kladovshik());
+			model.addAttribute("kladovshik", new Kladovshik());
 		Kladovshik kladocshik = this.kladovshikService.getById(id);
 		model.addAttribute("listKladovschikSklad", this.kladovshikService.SkladBykladovshik(kladocshik.getId()));
 		model.addAttribute("kladovshik", this.kladovshikService.getById(kladocshik.getId()));
 		
 		return "sklad/sklads";
 	}
-
-
 }

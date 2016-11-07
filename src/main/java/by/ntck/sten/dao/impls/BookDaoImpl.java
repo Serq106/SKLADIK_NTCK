@@ -26,7 +26,6 @@ public class BookDaoImpl implements IBookDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(book);
 		LOG.info("Book successfully saved. Book details: " + book);
-
 	}
 
 	@Override
@@ -34,7 +33,6 @@ public class BookDaoImpl implements IBookDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(book);
 		LOG.info("Book successfully update. Book details: " + book);
-
 	}
 
 	@Override
@@ -65,11 +63,7 @@ public class BookDaoImpl implements IBookDao {
 
 		for (Book book : bookList) {
 			LOG.info("Book list: " + book);
-		} //
-
+		}
 		return bookList;
 	}
-	
-	
-
 }

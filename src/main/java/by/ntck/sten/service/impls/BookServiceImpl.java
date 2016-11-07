@@ -16,13 +16,11 @@ public class BookServiceImpl implements IBookService {
 
 	public void setDao(IBookDao bookDao) {
 		this.dao = bookDao;
-
 	}
 
 	@Override
 	public void addBook(Book book) {
 		this.dao.addBook(book);
-
 	}
 
 	@Override
@@ -45,5 +43,4 @@ public class BookServiceImpl implements IBookService {
 
 		return this.dao.listBooks();
 	}
-
 }
