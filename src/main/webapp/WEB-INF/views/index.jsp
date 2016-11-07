@@ -9,10 +9,10 @@
 <br/>
 b
 <a href="kladovshik/login" target="_blank"> signin | </a>
-<a href="sklad/sklads" target="_blank"> open Sklad | </a>
-<a href="book/book_create" target="_blank">create</a>
+<a href="sklad/sklads" target="_blank" > open Sklad | </a>
+<a href="book/book_create" target="_blank">create  |</a>
 
-<a href="sklad/sklad_kladovschik/1" target="_blank"> sklad_kladovschik | </a>
+<a href="sklad/sklad_kladovschik/1" target="_blank"> sklad_kladovschik ss| </a>
 <br/>
 </body>
 </html>

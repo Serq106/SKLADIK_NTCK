@@ -17,9 +17,8 @@
 <br/>
 
 <h1>Book List</h1>
-<h2>${kladovshik}</h2>
 
-<form action="${pageContext.servletContext.contextPath}/sklad/sklads" method="post">
+<form action="${pageContext.servletContext.contextPath}sklad/sklad_kladovschik/${kladovshik.id}" method="post">
 	<p><input type="text" name="login" value="Rasputin" }/></p>
 	<p><input type="password" name="password" value="1234567" /></p>
 	<p><button type="submit">signin</button></p>

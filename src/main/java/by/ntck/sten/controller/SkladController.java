@@ -34,7 +34,7 @@ public class SkladController {
 	}
 	
 	
-	@RequestMapping(value = "/sklads", method = RequestMethod.GET)
+	@RequestMapping(value = "/sklads", method = RequestMethod.POST)
 	public String listSklad(Model model){
 		model.addAttribute("sklad", new Sklad());
 		model.addAttribute("listSklad", this.skladService.list());

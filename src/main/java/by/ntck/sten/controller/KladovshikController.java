@@ -25,16 +25,29 @@ public class KladovshikController {
 		this.kladovshikService = kladovshikService;
 	}
 
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = "/login" )
 	public String login(Model model) {
 		model.addAttribute("kladovshik", new Kladovshik());
-
-
-		return "login";
+		return "/login";
 	}
 
-	@RequestMapping(value = "/kladovshik_data", method = RequestMethod.POST)
+	@RequestMapping(value = "/auth", method = RequestMethod.POST)
 	public String login_auth(@RequestParam("login") String login, @RequestParam("password") String password,
+			Model model) {
+		model.addAttribute("kladovshik", new Kladovshik());
+		Kladovshik kladovshik = kladovshikService.login(login, password);
+		model.addAttribute("kladovshik", (kladovshik==null)?"מיי¸ימ¸מימ¸י":kladovshik);
+		
+		LOG.error(kladovshik);
+		if (kladovshik == null) {
+			return "login";
+		} else {
+			return "/login";
+		}
+	}
+	
+	@RequestMapping(value = "/kladovshik_data", method = RequestMethod.POST)
+	public String kladovshik_data(@RequestParam("login") String login, @RequestParam("password") String password,
 			Model model) {
 		model.addAttribute("kladovshik", new Kladovshik());
 		Kladovshik kladovshik = kladovshikService.login(login, password);
