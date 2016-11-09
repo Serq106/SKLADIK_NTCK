@@ -40,6 +40,7 @@
 				<value>by.ntck.sten.model.User</value>
 				<value>by.ntck.sten.model.Kladovshik</value>
 				<value>by.ntck.sten.model.Sklad</value>
+				<value>by.ntck.sten.model.HistoryOperation</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -66,7 +67,6 @@
 	</bean>
 
 	<!--здесь будем описывать бины(у тебя модели) -->
-	
 	<bean id="userDAO" class="by.ntck.sten.dao.impls.UserDaoImpl">
 		<property name="sessionFactory" ref="hibernate" />
 	</bean>
@@ -86,6 +86,13 @@
 	</bean>
 	<bean id="skladService" class="by.ntck.sten.service.impls.SkladServiceImpl">
 		<property name="daoSklad" ref="skladDAO" />
+	</bean>
+	
+	<bean id="historyOperationDAO" class="by.ntck.sten.dao.impls.HistoryOperationDaoImpl">
+		<property name="sessionFactory" ref="hibernate" />
+	</bean>
+	<bean id="historyOperationService" class="by.ntck.sten.service.impls.HistoryOperationServiceImpl">				
+		<property name="daoHistoryOperation" ref="historyOperationDAO" />
 	</bean>
 
 	<!-- разрешаем использовать аннотации -->
