@@ -1,6 +1,5 @@
 package by.ntck.sten.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,22 +30,33 @@ public class HistoryOperation {
 	private int id_row;
 	
 	@Column(name = "date")
-	private String date;	
+	private String date;
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	@Column(name = "operation")
+	private String operation;
+		
 	public Kladovshik getKladovshik() {
 		return kladovshik;
 	}
 
 	public void setKladovshik(Kladovshik kladovshik) {
 		this.kladovshik = kladovshik;
+	}
+
+	public String getOperation() {
+		return operation;
+	}
+
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTableName() {
@@ -86,6 +96,8 @@ public class HistoryOperation {
 		builder.append(id_row);
 		builder.append(", date=");
 		builder.append(date);
+		builder.append(", operation=");
+		builder.append(operation);
 		builder.append("]");
 		return builder.toString();
 	}

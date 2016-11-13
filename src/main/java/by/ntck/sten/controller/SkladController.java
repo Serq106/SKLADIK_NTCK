@@ -1,6 +1,7 @@
 package by.ntck.sten.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import by.ntck.sten.model.Sklad;
+import by.ntck.sten.model.HistoryOperation;
 import by.ntck.sten.model.Kladovshik;
+import by.ntck.sten.service.IHistoryOperationService;
 import by.ntck.sten.service.IKladovshikService;
 import by.ntck.sten.service.IService;
 
@@ -24,10 +27,19 @@ import by.ntck.sten.service.IService;
 @RequestMapping("sklad")
 public class SkladController {
 	public static  final Logger LOG = Logger.getLogger(SkladController.class);
+	
 	private IService<Sklad> skladService;
 	
 	private IKladovshikService kladovshikService;
 	
+	private IHistoryOperationService historyOperationService;
+	
+	@Autowired(required = true)
+	@Qualifier(value = "historyOperationService")
+	public void setHistoryOperationService(IHistoryOperationService historyOperationService) {
+		this.historyOperationService = historyOperationService;
+	}
+
 	@Autowired(required = true)
 	@Qualifier(value = "kladovshikService")
 	public void setKladovshikService(IKladovshikService kladovshikService) {
@@ -46,6 +58,21 @@ public class SkladController {
 		model.addAttribute("sklads", skladService.getById(id));
 
 		return "sklad/sklad_data";
+	}
+	
+	public void history(@RequestParam("id") int id, @RequestParam("date") String Dates, @RequestParam("id_row") int Id_row,
+			@RequestParam("tableName") String TableName, @RequestParam("operation") String Operation, 
+			@RequestParam("id_kladovshik") int id_kladovshik){
+
+		HistoryOperation historyOperation = new HistoryOperation();
+		historyOperation.setId(id);
+		historyOperation.setDate(Dates);
+		historyOperation.setId_row(Id_row);
+		historyOperation.setOperation(Operation);
+		historyOperation.setTableName(TableName);		
+		historyOperation.setKladovshik(kladovshikService.getById(id_kladovshik));
+		this.historyOperationService.add(historyOperation);	
+		
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -81,7 +108,11 @@ public class SkladController {
 		list.add(kladovshikService.getById(user_id));
 		sklad.setKladovshik( list);
 		skladService.add(sklad);
-		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();
+		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();	
+		
+		Date currentDate = new Date();
+		this.history(0, currentDate.toString(), sklad.getId(), "Sklad", "add", id_kladovshik);
+		
 		return  "redirect:/sklad/sklad_kladovschik/"+ id_kladovshik;// "redirect:"+request.getHeader("referer"); //";
 	}
 
@@ -136,11 +167,18 @@ public class SkladController {
 		sklad.setKladovshik( list);
 		skladService.update(sklad);
 		
+		Date currentDate = new Date();
+		this.history(0, currentDate.toString(), id, "Sklad", "edit", id_kladovshik);
+
 		return  "redirect:/sklad/sklad_kladovschik/"+ id_kladovshik;// "redirect:"+request.getHeader("referer"); //";
 	}
 	
 	@RequestMapping("/remove/{id}")
-	public String remove(@PathVariable("id") int id, HttpServletRequest request){
+	public String remove(@PathVariable("id") int id, HttpServletRequest request, Model model){
+		Date currentDate = new Date();
+		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();	
+		this.history(0, currentDate.toString(), id, "Sklad", "remove", id_kladovshik);
+		
 		this.skladService.remove(id);
 		return "redirect:" + request.getHeader("referer");
 	}

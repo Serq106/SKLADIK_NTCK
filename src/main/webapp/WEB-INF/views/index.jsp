@@ -13,6 +13,7 @@ b
 <a href="book/book_create">create  |</a>
 
 <a href="sklad/sklad_kladovschik/1"> sklad_kladovschik ss| </a>
+<a href="historyOperation/historyOperations"> historyOperation| </a>
 <br/>
 </body>
 </html>

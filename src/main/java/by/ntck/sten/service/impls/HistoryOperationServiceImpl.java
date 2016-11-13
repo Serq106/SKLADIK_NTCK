@@ -2,15 +2,20 @@ package by.ntck.sten.service.impls;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import by.ntck.sten.dao.IHistoryOperationDao;
 import by.ntck.sten.model.HistoryOperation;
-import by.ntck.sten.service.IHistoryOperation;
+import by.ntck.sten.service.IHistoryOperationService;
 
-public class HistoryOperationServiceImpl implements IHistoryOperation {
+@Service
+@Transactional
+public class HistoryOperationServiceImpl implements IHistoryOperationService {
 	private IHistoryOperationDao daoHistoryOperation;
 	
-	public void setDaoHistoryOperation(IHistoryOperationDao daoHistoryOperation) {
-		this.daoHistoryOperation = daoHistoryOperation;
+	public void setDaoHistoryOperation(IHistoryOperationDao dao) {
+		this.daoHistoryOperation = dao;
 	}
 
 	@Override

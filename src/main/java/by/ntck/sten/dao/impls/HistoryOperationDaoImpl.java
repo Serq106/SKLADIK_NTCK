@@ -58,7 +58,7 @@ public class HistoryOperationDaoImpl implements IHistoryOperationDao {
 	@Override
 	public List<HistoryOperation> list() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<HistoryOperation> historyOperationList = (List<HistoryOperation>) session.createQuery("from historyOperation").list();
+		List<HistoryOperation> historyOperationList = (List<HistoryOperation>) session.createQuery("from HistoryOperation").list();
 		
 		for(HistoryOperation historyOperation : historyOperationList ){
 			LOG.info("historyOperation list: " + historyOperation);
