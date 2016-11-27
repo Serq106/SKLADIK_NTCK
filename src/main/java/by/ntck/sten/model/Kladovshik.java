@@ -29,6 +29,14 @@ public class Kladovshik {
 	private List<Sklad> sklad;
 	
 
+	
+	public Kladovshik() {
+		
+		this.id = 0;
+		this.login = "";
+		this.password = "";
+		this.sklad = null;
+	}
 	public List<Sklad> getSklad() {
 		return sklad;
 	}

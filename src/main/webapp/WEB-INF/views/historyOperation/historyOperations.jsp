@@ -28,6 +28,7 @@
             <th width="120">edin</th>
             <th width="120">kolvo</th>
             <th width="60">sklad_key</th>
+            <th width="60">user_id</th>
         </tr>
         <c:forEach items="${listHistory}" var="list">
             <tr>
@@ -36,6 +37,7 @@
                 <td>${list.id_row}</td>
                 <td>${list.date}</td>
                 <td>${list.operation}</td>
+                <td>${list.kladovshik}</td>
              </tr>
         </c:forEach>
     </table>    

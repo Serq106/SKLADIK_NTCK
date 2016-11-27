@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 import by.ntck.sten.dao.IKladovshikDao;
 import by.ntck.sten.model.Kladovshik;
 import by.ntck.sten.model.Sklad;
+import by.ntck.sten.model.User;
+
+import static by.ntck.sten.constant.Constants.*;
 
 @Repository
 public class KladovshikDaoImpl implements IKladovshikDao {
@@ -52,7 +55,9 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 	public Kladovshik getById(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Kladovshik kladovshik = (Kladovshik) session.load(Kladovshik.class, new Integer(id));
-
+		if (kladovshik == null) {
+			return EMPTY_KLADOVSHIK;
+		}
 		LOG.info("Book successfully loaded. Book detalis: " + kladovshik);
 		return kladovshik;
 	}
@@ -66,50 +71,75 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 		}
 		return kladovshikList;
 	}
-	
+
 	@Override
 	public Kladovshik login(String login, String password) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Kladovshik kladovshik = (Kladovshik) session.createQuery("from Kladovshik as kladovshik where kladovshik.login='" + login 
-				+ "' and kladovshik.password ='" + password +"'").getSingleResult();
 
-		if (kladovshik == null)
-		{
-			LOG.info("Kladovshik null ");
-			return new Kladovshik();
+		List<Kladovshik> kladovshiks = (List<Kladovshik>) session
+				.createQuery("from Kladovshik as kladovshik where kladovshik.login='" + login
+						+ "' and kladovshik.password ='" + password + "'")
+				.list();
+
+		if (kladovshiks.size() == 0) {
+			return EMPTY_KLADOVSHIK;
+		} else {
+			return kladovshiks.get(0);
 		}
-		else
-		{
-			LOG.info("Kladovshik : " + kladovshik);
-			return kladovshik;
-		}		
+
 	}
 
 	@Override
 	public List<Kladovshik> kladovshikBySklad(int id_sklad) {
-			Session session = this.sessionFactory.getCurrentSession();
-			Query q = session.createQuery(
-			          " select k "
-			              + " from Kladovshik k INNER JOIN k.sklad sklad"
-			              + " where sklad.id = :skladId "
-			      ).setLong("skladId", id_sklad);
-			          			
-			List<Kladovshik> kladovshikList = q.list();
-			LOG.info("kladovshikBySklad successfully loaded. kladovshikBySklad detalis: ");
-			return kladovshikList;
-		}
+		Session session = this.sessionFactory.getCurrentSession();
+		Query q = session
+				.createQuery(
+						" select k " + " from Kladovshik k INNER JOIN k.sklad sklad" + " where sklad.id = :skladId ")
+				.setLong("skladId", id_sklad);
+
+		List<Kladovshik> kladovshikList = q.list();
+		LOG.info("kladovshikBySklad successfully loaded. kladovshikBySklad detalis: ");
+		return kladovshikList;
+	}
 
 	@Override
 	public List<Sklad> SkladBykladovshik(int id_kladovshok) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Query q = session.createQuery(
-				"select s "
-				   + " from Sklad s INNER JOIN s.kladovshik kladovshik"
-				   + " where kladovshik.id = :kladovshikId "
-				).setLong("kladovshikId", id_kladovshok);
+		Query q = session.createQuery("select s " + " from Sklad s INNER JOIN s.kladovshik kladovshik"
+				+ " where kladovshik.id = :kladovshikId ").setLong("kladovshikId", id_kladovshok);
 		List<Sklad> SkladList = q.list();
 		LOG.info("kladovshikBySklad successfully loaded. kladovshikBySklad detalis: ");
 
 		return SkladList;
+	}
+
+	@Override
+	public String getRole(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+
+		//Kladovshik kladovshik = getById(id);
+
+//		List<User> userList = (List<User>) session.createQuery("from User u where u.user_id = :kladovshikID")
+//				.setLong("kladovshikID", id).list();
+
+		Query q = session.createQuery("select u " + " from User u INNER JOIN u.kladovshik kladovshik"
+				+ " where kladovshik.id = :kladovshikId ").setLong("kladovshikId", id);
+		List<User> userList = q.list();
+		
+		if (userList != null) {
+			int department_id = userList.get(0).getDepartment_id();
+
+			switch (department_id) {
+			case ADMINISTRATOR:
+				return ROLE_ADMINISTRATOR;
+			case KLADOVSHIK:
+				return ROLE_KLADOVSHIK;
+			default:
+				return EMPTY_ROLE;
+			}
+
+		}
+		return EMPTY_ROLE;
+
 	}
 }

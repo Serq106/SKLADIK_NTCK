@@ -12,5 +12,7 @@ public interface IKladovshikDao extends IDAO<Kladovshik>{
 	public List<Kladovshik> kladovshikBySklad(int id_sklad);
 	
 	public List<Sklad> SkladBykladovshik(int id_kladovshok);
+
+	public String getRole(int id);
 		
 }

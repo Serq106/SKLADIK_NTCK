@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import by.ntck.sten.model.Kladovshik;
 import by.ntck.sten.service.IKladovshikService;
-
+import static by.ntck.sten.constant.Constants.*;
 @Controller
 @RequestMapping("kladovshik")
 public class KladovshikController {
@@ -38,13 +38,13 @@ public class KladovshikController {
 			Model model, HttpServletRequest request) {		
 		model.addAttribute("kladovshik", new Kladovshik());
 		Kladovshik kladovshik = kladovshikService.login(login, password);
-		model.addAttribute("kladovshik", (kladovshik==null)?"מיי¸ימ¸מימ¸י":kladovshik);
-		request.getSession().setAttribute("kladovshik",kladovshik);
+
+		model.addAttribute("kladovshik", (kladovshik.equals(EMPTY_KLADOVSHIK))?EMPTY_KLADOVSHIK:kladovshik);		
+		//request.getSession().setAttribute("kladovshik",kladovshik);
+		
 		LOG.error(kladovshik);
-		if (kladovshik == null) {
-			return "login";
-		} else {
-			return "/kladovshik/kladovshik_data";
-		}
+		
+			return "/kladovshik/kladovshik_data";			
+		
 	}
 }

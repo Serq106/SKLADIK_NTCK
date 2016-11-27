@@ -41,6 +41,7 @@
 				<value>by.ntck.sten.model.Kladovshik</value>
 				<value>by.ntck.sten.model.Sklad</value>
 				<value>by.ntck.sten.model.HistoryOperation</value>
+				<value>by.ntck.sten.model.SkladH</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -93,6 +94,13 @@
 	</bean>
 	<bean id="historyOperationService" class="by.ntck.sten.service.impls.HistoryOperationServiceImpl">				
 		<property name="daoHistoryOperation" ref="historyOperationDAO" />
+	</bean>
+	
+	<bean id="skladHDAO" class="by.ntck.sten.dao.impls.SkladHDaoImpl">
+		<property name="sessionFactory" ref="hibernate" />
+	</bean>
+	<bean id="skladHService" class="by.ntck.sten.service.impls.SkladHServiceImpl">				
+		<property name="daoSkladH" ref="skladHDAO" />
 	</bean>
 
 	<!-- разрешаем использовать аннотации -->

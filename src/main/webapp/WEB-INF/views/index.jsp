@@ -1,19 +1,20 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="from" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="false" %>
 <html>
 <head>
-  <title>Proselyte</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/CSS/style.css"/>
+  <title>Меню</title>
 </head>
 <body>
-<h3>Proselyte presents</h3>
+<h2>Главная </h2>
 <br/>
-b
-<a href="kladovshik/login" > signin | </a>
-<a href="sklad/sklads" > open Sklad | </a>
-<a href="book/book_create">create  |</a>
 
-<a href="sklad/sklad_kladovschik/1"> sklad_kladovschik ss| </a>
-<a href="historyOperation/historyOperations"> historyOperation| </a>
+<h2><a href="kladovshik/login" > Авторизация | </a>
+<a href="historyOperation/historyOperations"> История| </a></h2>
 <br/>
 </body>
 </html>

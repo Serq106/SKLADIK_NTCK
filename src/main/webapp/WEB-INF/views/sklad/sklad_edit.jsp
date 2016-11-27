@@ -9,26 +9,17 @@
 <body>
 
 <form action="${pageContext.servletContext.contextPath}/sklad/edit" method="post">
-	<input type="text" name="naim" value="${findSklad.naim }"/>
-	<input type="text" name="naim2" value="${findSklad.naim2 }"/>
-	<input type="text" name="edin" value="${findSklad.edin }"/>
-	<input type="text" name="kolvo" value="${findSklad.kolvo }"/>
-	<input type="text" name="sklad_key" value="${findSklad.sklad_key }"/>
-	<input type="text" name="isdel" value="${findSklad.isdel }"/>
-	<input type="text" name="stelach" value="${findSklad.stelach }"/>
-	<input type="text" name="yatheika" value="${findSklad.yatheika }"/>
-	<input type="text" name="used" value="${findSklad.used }"/>
-	<input type="text" name="karta" value="${findSklad.karta }"/>
-	<input type="text" name="price" value="${findSklad.price }"/>
-	<input type="text" name="in_bd" value="${findSklad.in_bd }"/>
-	<input type="text" name="tolling" value="${findSklad.tolling }"/>
-	<input type="text" name="testing" value="${findSklad.testing }"/>
-	<input type="text" name="imports" value="${findSklad.imports }"/>
-	<input type="text" name="close_kadr" value="${findSklad.close_kadr }"/>
-	<input type="text" name="sap_kod" value="${findSklad.sap_kod }"/>
-	<input type="text" name="bismt" value="${findSklad.bismt }"/>
-	<input type="hidden" name="id" value="${findSklad.id }" />	
-	<button type="submit">Add</button>
+	<p>Наименование <input type="text" name="naim" value="${findSklad.naim }"/></p>
+	<p>Единица измерения <input type="text" name="edin" value="${findSklad.edin }"/></p>	
+	<p>Общее количество<input type="text" name="kolvo" value="${findSklad.kolvo }"/></p>
+
+	<p>Признак б/y <input type="text" name="used" value="${findSklad.used }"/></p>	
+	<p>Средняя цена <input type="text" name="price" value="${findSklad.price }"/></p>
+
+	<p><input type="hidden" name="id" value="${findSklad.id }" />	
+	
+
+	<button type="submit">Редактировать</button>
 </form>
 
 </body>

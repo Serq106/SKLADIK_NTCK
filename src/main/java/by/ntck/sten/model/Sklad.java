@@ -83,8 +83,7 @@ public class Sklad {
              joinColumns = { @JoinColumn(name = "sklad_id") }, 
              inverseJoinColumns = { @JoinColumn(name = "kladovshik_id") })
 	private List<Kladovshik> kladovshik = new ArrayList<Kladovshik>();
-
-			
+				
 	public List<Kladovshik> getKladovshik() {
 		return kladovshik;
 	}

@@ -15,7 +15,7 @@ import by.ntck.sten.model.Sklad;
 
 @Repository
 public class SkladDaoImpl implements ISkladDao {
-	private static final Logger LOG = LoggerFactory.getLogger(KladovshikDaoImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SkladDaoImpl.class);
 	
 	private SessionFactory sessionFactory;
 
@@ -69,7 +69,7 @@ public class SkladDaoImpl implements ISkladDao {
 	}
 
 	@Override
-	public List<Kladovshik> kladovshikBySklad(final int id_sklad) {
+	public List<Kladovshik> kladovshikBySklad(int id_sklad) {
 			Session session = this.sessionFactory.getCurrentSession();
 			Query q = (Query) session.createQuery(
 					"select k from Kladovshik as k left join k.id as kid where kid.id = :id_sklad").setInteger("id_sklad", id_sklad);

@@ -42,7 +42,7 @@ public class HistoryOperationController {
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String  add(@RequestParam("id") int id, @RequestParam("date") String Dates, @RequestParam("id_row") int Id_row,
+	public void  add(@RequestParam("id") int id, @RequestParam("date") String Dates, @RequestParam("id_row") int Id_row,
 			@RequestParam("tableName") String TableName, @RequestParam("operation") String Operation, Model model, HttpServletRequest request){
 		HistoryOperation historyOperation = new HistoryOperation();
 		historyOperation.setDate(Dates);
@@ -53,7 +53,7 @@ public class HistoryOperationController {
 		//historyOperation.setKladovshik(kladovshikService.getById(id_kladovshik));
 		this.historyOperationService.add(historyOperation);	
 		
-		return "redirect:/historyOperation/historyOperations";
+		//return "redirect:/historyOperation/historyOperations";
 	}
 	
 
