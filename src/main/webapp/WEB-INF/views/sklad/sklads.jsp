@@ -23,13 +23,15 @@
 <table class="tg">
         <tr>
             <th width="80">Ид</th>
-            <th width="120">Наиминование</th>
-            <th width="120">Еденица измерения</th>
+            <th width="120">Наименование</th>
+            <th width="120">Единица измерения</th>
             <th width="120">Общее количество</th>
             <th width="60">Признак б/y</th>
             <th width="60">Средняя цена</th>
+            <c:if test="${role.equals('ADMINISTRATOR')}">
             <th width="60">Edit</th>
             <th width="60">Delete</th>
+            </c:if>
         </tr>
         <c:forEach items="${listKladovschikSklad}" var="list">
             <tr>

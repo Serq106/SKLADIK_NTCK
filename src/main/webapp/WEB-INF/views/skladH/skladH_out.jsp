@@ -20,20 +20,23 @@
             <th width="120">количество</th>
             <th width="120">Название</th>         
         </tr>
+        <c:if test="${list.operthiya != 'out'}">
         <c:forEach items="${skladHList}" var="list">
-            <tr>
-                <td>${list.id}</td>
-                <td>${list.kol_vo}</td>
-                <td>${list.naim}</td>
-             </tr>
+        	<c:if test="${list.operthiya != 'out'}">
+	            <tr>
+	                <td>${list.id}</td>
+	                <td>${list.kol_vo}</td>
+	                <td>${list.naim}</td>
+	             </tr>
+             </c:if>
         </c:forEach>
+        </c:if>
     </table> 
     
-    <form action="${pageContext.servletContext.contextPath}/skladH/adds" method="post">
+    <form action="${pageContext.servletContext.contextPath}/skladH/adds" method="get">
     	<select name="id">	
 		<c:forEach items="${skladHList}" var="list">
-			<option value="${list.id}">${list.id}</option>
-			<option value="${list.kol_vo}">${list.kol_vo}</option>
+			<option name="id" value="${list.id}">${list.id}</option>
 		</c:forEach>
 		<p>Количество<input type="text" name="kol_vo" /></p>
 		<button type="submit">Add</button>

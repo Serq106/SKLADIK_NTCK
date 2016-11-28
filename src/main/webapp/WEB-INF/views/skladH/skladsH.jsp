@@ -28,8 +28,7 @@
             <th width="120">Вид документа</th>
             <th width="60">ФИО заказчика</th>
             <th width="120">Еденица измерения</th>            
-            <th width="60">Edit</th>
-            <th width="60">Delete</th>
+
         </tr>
         <c:forEach items="${skladsH}" var="list">
             <tr>

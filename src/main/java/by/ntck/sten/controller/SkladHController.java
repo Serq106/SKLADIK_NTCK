@@ -136,29 +136,42 @@ public class SkladHController {
 		skladH.setSklad_id(skId);		
 		skladHService.add(skladH);
 		
-		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();	
-		this.history(0, currentDate.toString(), skladH.getId(), "Sklad", operthiya, id_kladovshik );
+		//int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();	
+		//this.history(0, currentDate.toString(), skladH.getId(), "Sklad", operthiya, id_kladovshik );
 		
 		return "redirect:/skladH/skladsH/"+ skId;
 	}
 	
-	@RequestMapping(value = "/adds", method = RequestMethod.POST)
+	@RequestMapping(value = "/adds", method = RequestMethod.GET)
 	public String add(@RequestParam("id") int id,  @RequestParam("kol_vo") float kol_vo, HttpServletRequest request, Model model){
 		
 		Date currentDate = new Date();
 		SkladH skladH = new SkladH();		
 
-		skladH.setId(id);
+		skladH.setId(0);
 		skladH.setOperthiya("out");
-		skladH.setKol_vo(skladHService.Kol(id).getKol_vo() - kol_vo );
-		skladH.setData_oper(currentDate.toString());		
+		skladH.setKol_vo(kol_vo );
+		skladH.setData_oper(currentDate.toString());
+		skladH.setSklad_id(skId);
+		skladHService.add(skladH);
 		
-		skladH.setSklad_id(skId);		
-		skladHService.update(skladH);
+		SkladH skladH_ = new SkladH();			
+		skladH_.setId(skladHService.Kol(id).getId());
+		skladH_.setSklad_id(skId);
+		skladH_.setOperthiya(skladHService.Kol(id).getOperthiya());
+		skladH_.setData_oper(skladHService.Kol(id).getData_oper());
+		skladH_.setPostavhik(skladHService.Kol(id).getPostavhik());
+		skladH_.setData_zayavki(skladHService.Kol(id).getFio_zakazchika());
+		skladH_.setNaim(skladHService.Kol(id).getNaim());
+		skladH_.setTtni(skladHService.Kol(id).getTtni());
+		skladH_.setFio_zakazchika(skladHService.Kol(id).getFio_zakazchika());
+		skladH_.setAlt_edin(skladHService.Kol(id).getAlt_edin());
+		skladH_.setKol_vo(skladHService.Kol(id).getKol_vo() - kol_vo );
+		skladHService.update(skladH_);
+
 		
-		
-		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();	
-		this.history(0, currentDate.toString(), skladH.getId(), "Sklad", "out", id_kladovshik );
+		//int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();	
+		//this.history(0, currentDate.toString(), skladH.getId(), "Sklad", "out", id_kladovshik );
 		
 		return "redirect:/skladH/skladsH/"+ skId;
 	}

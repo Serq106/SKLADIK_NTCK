@@ -40,7 +40,7 @@ public class KladovshikController {
 		Kladovshik kladovshik = kladovshikService.login(login, password);
 
 		model.addAttribute("kladovshik", (kladovshik.equals(EMPTY_KLADOVSHIK))?EMPTY_KLADOVSHIK:kladovshik);		
-		//request.getSession().setAttribute("kladovshik",kladovshik);
+		request.getSession().setAttribute("kladovshik",kladovshik);
 		
 		LOG.error(kladovshik);
 		
