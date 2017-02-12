@@ -117,11 +117,6 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 	public String getRole(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 
-		//Kladovshik kladovshik = getById(id);
-
-//		List<User> userList = (List<User>) session.createQuery("from User u where u.user_id = :kladovshikID")
-//				.setLong("kladovshikID", id).list();
-
 		Query q = session.createQuery("select u " + " from User u INNER JOIN u.kladovshik kladovshik"
 				+ " where kladovshik.id = :kladovshikId ").setLong("kladovshikId", id);
 		List<User> userList = q.list();

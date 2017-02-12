@@ -88,6 +88,19 @@ public class SkladHDaoImpl implements ISkladHDao  {
 		return sklad;
 
 	}
+
+	@Override
+	public Double Count(int id_klad) {
+	Session session = this.sessionFactory.getCurrentSession();
+		double count =  (double) session.createNativeQuery(
+				"SELECT sum(kol_vo) FROM sklad s INNER JOIN SkladH sh ON (sh.`sklad_id` = s.`id`) "+
+				" INNER JOIN `sklad_sk` sk ON (sk.`sklad_id` =s.`id`)"+
+				" INNER JOIN `sklad_kladovshik` k ON (k.`id` = sk.`kladovshik_id`)"+
+				" WHERE sh.`operthiya`='in' AND k.`id`= 1 ")
+				.getSingleResult();
+		return count;
+		//return (double) 100500;
+	}
 	
 
 }

@@ -51,4 +51,8 @@ public class SkladHServiceImpl implements ISkladHService {
 		return this.daoSkladH.Kol(id);
 		
 	}
+	@Override
+	public Double Count(int id_klad) {		
+		return this.daoSkladH.Count(id_klad);
+	}
 }

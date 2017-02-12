@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Sklad_Kladovshik")
@@ -20,9 +22,11 @@ public class Kladovshik {
 	private int id;
 		
 	@Column(name = "login")
+	@Size(min = 2, message="assa")
 	private String login;
 	
 	@Column(name = "password")
+	@Size(min = 2, message="assa")
 	private String password;
 	
 	@ManyToMany(mappedBy = "kladovshik")	

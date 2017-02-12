@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -15,6 +16,8 @@
 
 <h2><a href="kladovshik/login" > Авторизация | </a>
 <a href="historyOperation/historyOperations"> История| </a></h2>
+
+"${findUser}"+++
 <br/>
 </body>
 </html>

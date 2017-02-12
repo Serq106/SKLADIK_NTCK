@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +21,9 @@ public class KladovshikController {
 	public static  final Logger LOG = Logger.getLogger(KladovshikController.class);
 
 	private IKladovshikService kladovshikService;
-
+	
+	public int her = 1;
+	
 	@Autowired(required = true)
 	@Qualifier(value = "kladovshikService")
 	public void setKladovshikService(IKladovshikService kladovshikService) {
@@ -30,21 +33,33 @@ public class KladovshikController {
 	@RequestMapping(value = "/login" )
 	public String login(Model model) {
 		model.addAttribute("kladovshik", new Kladovshik());
+		if(her == -1){
+			model.addAttribute("note",  her);
+			her = 1;
+		}			
+		else{
+			model.addAttribute("note",  her);
+			
+		}
 		return "/login";
 	}
 
 	@RequestMapping(value = "/auth", method = RequestMethod.POST)
 	public String login_auth(@RequestParam("login") String login, @RequestParam("password") String password,
-			Model model, HttpServletRequest request) {		
+			 Model model, HttpServletRequest request) {		
 		model.addAttribute("kladovshik", new Kladovshik());
 		Kladovshik kladovshik = kladovshikService.login(login, password);
 
-		model.addAttribute("kladovshik", (kladovshik.equals(EMPTY_KLADOVSHIK))?EMPTY_KLADOVSHIK:kladovshik);		
+		model.addAttribute("kladovshik", (kladovshik.equals(EMPTY_KLADOVSHIK))?EMPTY_KLADOVSHIK:kladovshik);
 		request.getSession().setAttribute("kladovshik",kladovshik);
-		
-		LOG.error(kladovshik);
-		
-			return "/kladovshik/kladovshik_data";			
+		if(kladovshik.getId()!= 0 ){
+			her = 1;
+			return "redirect:/sklad/sklad_kladovschik/"+ kladovshik.getId();	
+		} else {
+			her = -1;
+			return "redirect:/kladovshik/login";
+		}
+				
 		
 	}
 }

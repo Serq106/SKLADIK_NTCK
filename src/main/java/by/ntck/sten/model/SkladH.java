@@ -2,15 +2,9 @@ package by.ntck.sten.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -24,26 +18,7 @@ public class SkladH {
 	
 	@Column(name = "sklad_id")
 	private int sklad_id;
-	/*@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "sklad_id", referencedColumnName = "id")
-	private Sklad sklad;
-	
-	public Sklad getSklad() {
-		return sklad;
-	}
-
-	public void setSklad(Sklad sklad) {
-		this.sklad = sklad;
-	}*/
-	
-	public int getSklad_id() {
-		return sklad_id;
-	}
-
-	public void setSklad_id(int sklad_id) {
-		this.sklad_id = sklad_id;
-	}
-
+		
 	@Column(name = "operthiya")	
 	private String operthiya;
 	
@@ -138,6 +113,14 @@ public class SkladH {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public int getSklad_id() {
+		return sklad_id;
+	}
+
+	public void setSklad_id(int sklad_id) {
+		this.sklad_id = sklad_id;
+	}
 
 	public String getOperthiya() {
 		return operthiya;
@@ -145,8 +128,8 @@ public class SkladH {
 
 	public void setOperthiya(String operthiya) {
 		this.operthiya = operthiya;
-	}
-
+	}	
+		
 	public float getKol_vo() {
 		return kol_vo;
 	}
@@ -438,5 +421,6 @@ public class SkladH {
 		builder.append(master);
 		builder.append("]");
 		return builder.toString();
-	}	
+	}
+	
 }

@@ -1,14 +1,8 @@
 package by.ntck.sten.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
-import by.ntck.sten.model.HistoryOperation;
-import by.ntck.sten.model.Kladovshik;
 import by.ntck.sten.service.IHistoryOperationService;
 import by.ntck.sten.service.IKladovshikService;
 

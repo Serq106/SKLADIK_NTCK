@@ -51,15 +51,7 @@ public class SkladController {
 	public void setSkladService(IService<Sklad> skladService) {
 		this.skladService = skladService;
 	}
-	
-	@RequestMapping(value = "/sklad_data/{id}")
-	public String getById(@PathVariable("id") int id, Model model, HttpServletRequest request){
-		model.addAttribute("sklad", new Sklad());
-		model.addAttribute("sklads", skladService.getById(id));
-
-		return "sklad/sklad_data";
-	}
-	
+		
 	public void history(int id, String Dates, int Id_row, String TableName,  String Operation,  int id_kladovshik){
 		HistoryOperation historyOperation = new HistoryOperation();
 		historyOperation.setId(id);
@@ -70,9 +62,8 @@ public class SkladController {
 		historyOperation.setKladovshik(kladovshikService.getById(id_kladovshik));
 		this.historyOperationService.add(historyOperation);			
 	}
-	
-	
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+		
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String add(@RequestParam("id") int id, @RequestParam("bismt") String bismt, @RequestParam("close_kadr") String close_kadr, 
 			@RequestParam("edin") String edin, @RequestParam("imports") String imports, @RequestParam("in_bd") String in_bd, 
 			@RequestParam("isdel") String isdel, @RequestParam("karta") String karta, @RequestParam("kolvo") float kolvo, 
@@ -81,6 +72,7 @@ public class SkladController {
 			@RequestParam("testing") String testing, @RequestParam("tolling") String tolling, @RequestParam("used") String used,
 			@RequestParam("yatheika") String yatheika, @RequestParam("user_id") int user_id, Model model, HttpServletRequest request) {
 
+		
 		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();	
 		Date currentDate = new Date();
 		Sklad sklad = new Sklad();
@@ -108,10 +100,9 @@ public class SkladController {
 		sklad.setKladovshik( list);
 		skladService.add(sklad);
 		
-		//History h = new History();		
 		this.history(0, currentDate.toString(), sklad.getId(), "Sklad", "add", id_kladovshik);
 
-		return  "redirect:/sklad/sklad_kladovschik/"+ id_kladovshik;// "redirect:"+request.getHeader("referer"); //";
+		return  "redirect:/sklad/sklad_kladovschik/"+ id_kladovshik;
 	}
 
 	@RequestMapping(value = "/sklad_create")
@@ -151,40 +142,28 @@ public class SkladController {
 		Date currentDate = new Date();
 		this.history(0, currentDate.toString(), id, "Sklad", "edit", id_kladovshik);
 
-		return  "redirect:/sklad/sklad_kladovschik/"+ id_kladovshik;// "redirect:"+request.getHeader("referer"); //";
+		return  "redirect:/sklad/sklad_kladovschik/"+ id_kladovshik;
 	}
 	
 	@RequestMapping("/remove/{id}")
 	public String remove(@PathVariable("id") int id, HttpServletRequest request, Model model){
 		Date currentDate = new Date();
 		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();	
-		
-		History h = new History();
-
-		this.history(0, currentDate.toString(), id, "Sklad", "remove", id_kladovshik );
-		
 		this.skladService.remove(id);
+		
+		this.history(0, currentDate.toString(), id, "Sklad", "remove", id_kladovshik );
 		return "redirect:" + request.getHeader("referer");
 	}
-	
-	@RequestMapping(value = "/sklads", method = RequestMethod.GET)
-	public String listSklad(Model model){
-		model.addAttribute("sklad", new Sklad());
-		model.addAttribute("listSklad", this.skladService.list());
 		
-		return "sklad/sklads";
-	}
-	
 	@RequestMapping(value = "/sklad_kladovschik/{id}", method = RequestMethod.GET)
-	public String sklad_kladovschik(@PathVariable("id") int id,Model model){
+	public String sklad_kladovschik(@PathVariable("id") int id,Model model, HttpServletRequest request){
 			model.addAttribute("kladovshik", new Kladovshik());
 		Kladovshik kladocshik = this.kladovshikService.getById(id);
 		model.addAttribute("listKladovschikSklad", this.kladovshikService.SkladBykladovshik(kladocshik.getId()));
 		model.addAttribute("kladovshik", this.kladovshikService.getById(kladocshik.getId()));
 		model.addAttribute("role", this.kladovshikService.getRole(kladocshik.getId()));
-		
-		
-		
+		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();
+		model.addAttribute("findUser", id_kladovshik);
 		
 		return "sklad/sklads";
 	}

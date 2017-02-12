@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -6,41 +7,53 @@
 <%@ page session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<script>
+			function out(id){
+				if (confirm("Вы действительно хотите списать")){
+					document.location.replace(path);
+				}		 
+			}			
+		</script>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/CSS/style.css"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Списание</title>
 </head>
 <body>
-	<table class="tg">
-        <tr>
-        	<th width="80">ID</th>
-            <th width="120">количество</th>
-            <th width="120">Название</th>         
-        </tr>
-        <c:if test="${list.operthiya != 'out'}">
-        <c:forEach items="${skladHList}" var="list">
-        	<c:if test="${list.operthiya != 'out'}">
-	            <tr>
-	                <td>${list.id}</td>
-	                <td>${list.kol_vo}</td>
-	                <td>${list.naim}</td>
-	             </tr>
-             </c:if>
-        </c:forEach>
-        </c:if>
-    </table> 
-    
-    <form action="${pageContext.servletContext.contextPath}/skladH/adds" method="get">
-    	<select name="id">	
-		<c:forEach items="${skladHList}" var="list">
-			<option name="id" value="${list.id}">${list.id}</option>
-		</c:forEach>
-		<p>Количество<input type="text" name="kol_vo" /></p>
-		<button type="submit">Add</button>
-	</select>
-    </form> 
+	
+	<div class="main-sklad">
+	${count }
+		<table class="tg">
+	        <tr>
+	        	<th width="80">ID</th>
+	            <th width="120">количество</th>
+	            <th width="120">Название</th>         
+	        </tr>
+	        <c:if test="${list.operthiya != 'out'}">
+	        <c:forEach items="${skladHList}" var="list">
+	        	<c:if test="${list.operthiya != 'out' && list.kol_vo > 0}">
+		            <tr>
+		                <td>${list.id}</td>
+		                <td>${list.kol_vo}</td>
+		                <td>${list.naim}</td>
+		             </tr>
+	             </c:if>
+	        </c:forEach>
+	        </c:if>
+	    </table> 
+	    
+	    <form action="${pageContext.servletContext.contextPath}/skladH/adds" method="get">
+	    	<select name="id">	
+			<c:forEach items="${skladHList}" var="list">
+				<c:if test="${list.operthiya != 'out' && list.kol_vo > 0}">
+					<option name="id" value="${list.id}">${list.id}</option>
+				</c:if>
+			</c:forEach>
+			<p>Количество<input type="text" name="kol_vo" /></p>
+			<button type="submit" onclick="out()">Списать изделие</button>
+		</select>
+	    </form> 
+    </div>
 </body>
 </html>
