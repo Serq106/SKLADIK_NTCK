@@ -61,6 +61,48 @@ public class User {
 		return kladovshik;
 	}
 
+	
+	
+	
+	public User(String login, String fullname) {
+		super();
+		this.login = login;
+		this.fullname = fullname;
+	}
+
+
+
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
+	public User(int id, String login, int department_id, String fullname, String lastname, String firstname,
+			String otchestvo, String job, int section_id, String user_status, int boss, int t_number,
+			Kladovshik kladovshik) {
+		super();
+		this.id = id;
+		this.login = login;
+		this.department_id = department_id;
+		this.fullname = fullname;
+		this.lastname = lastname;
+		this.firstname = firstname;
+		this.otchestvo = otchestvo;
+		this.job = job;
+		this.section_id = section_id;
+		this.user_status = user_status;
+		this.boss = boss;
+		this.t_number = t_number;
+		this.kladovshik = kladovshik;
+	}
+
+
+
+
 	public void setKladovshik(Kladovshik kladovshik) {
 		this.kladovshik = kladovshik;
 	}
