@@ -19,8 +19,8 @@
     <div class="login">
       <h1>Войти в личный кабинет</h1>
       <form action="${pageContext.servletContext.contextPath}/kladovshik/auth" method="post">
-        <p><input type="text" name="login" value="" placeholder="Логин или Email"></p>
-        <p><input type="password" name="password" value="" placeholder="Пароль"></p>  
+        <p><input type="text" name="login" value="" placeholder="Логин или Email" required pattern="[a-zA-Z0-9]+"></p>
+        <p><input type="password" name="password" value="" placeholder="Пароль" required pattern="[a-zA-Z0-9]+"></p>  
         
         <p class="remember_me">
           <label>

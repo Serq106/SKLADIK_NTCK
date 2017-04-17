@@ -90,24 +90,13 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 	}
 
 	@Override
-	public List<Kladovshik> kladovshikBySklad(int id_sklad) {
-		Session session = this.sessionFactory.getCurrentSession();
-		Query q = session
-				.createQuery(
-						" select k " + " from Kladovshik k INNER JOIN k.sklad sklad" + " where sklad.id = :skladId ")
-				.setLong("skladId", id_sklad);
-
-		List<Kladovshik> kladovshikList = q.list();
-		LOG.info("kladovshikBySklad successfully loaded. kladovshikBySklad detalis: ");
-		return kladovshikList;
-	}
-
-	@Override
 	public List<Sklad> SkladBykladovshik(int id_kladovshok) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Query q = session.createQuery("select s " + " from Sklad s INNER JOIN s.kladovshik kladovshik"
-				+ " where kladovshik.id = :kladovshikId ").setLong("kladovshikId", id_kladovshok);
-		List<Sklad> SkladList = q.list();
+		
+		Query q = session.createQuery("select s from Sklad s INNER JOIN s.kladovshik kladovshik"
+				+ " where kladovshik.id = :kladovshikId and s.isdel = 0").setLong("kladovshikId", id_kladovshok);
+		List<Sklad> SkladList = q.list(); // 0 - склад не удален 1 - склад удален
+		
 		LOG.info("kladovshikBySklad successfully loaded. kladovshikBySklad detalis: ");
 
 		return SkladList;

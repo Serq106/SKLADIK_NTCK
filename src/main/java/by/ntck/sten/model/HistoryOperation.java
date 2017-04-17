@@ -13,28 +13,28 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Sklad_HistoryOperation")
 public class HistoryOperation {
-	
+
 	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
-	private int id;
-	
+	@Column(name = "id_historyOperation")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id_historyOperation;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "kladovshik_id", nullable = false)
+	@JoinColumn(name = "kladovshik_id", nullable = false)
 	private Kladovshik kladovshik;
-	
+
 	@Column(name = "tableName")
 	private String tableName;
-	
+
 	@Column(name = "id_row")
 	private int id_row;
-	
+
 	@Column(name = "date")
 	private String date;
-	
+
 	@Column(name = "operation")
 	private String operation;
-		
+
 	public Kladovshik getKladovshik() {
 		return kladovshik;
 	}
@@ -51,12 +51,12 @@ public class HistoryOperation {
 		this.operation = operation;
 	}
 
-	public int getId() {
-		return id;
+	public int getId_historyOperation() {
+		return id_historyOperation;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId_historyOperation(int id_historyOperation) {
+		this.id_historyOperation = id_historyOperation;
 	}
 
 	public String getTableName() {
@@ -86,8 +86,8 @@ public class HistoryOperation {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("HistoryOperation [id=");
-		builder.append(id);
+		builder.append("HistoryOperation [id_historyOperation=");
+		builder.append(id_historyOperation);
 		builder.append(", kladovshik=");
 		builder.append(kladovshik);
 		builder.append(", tableName=");
@@ -101,4 +101,5 @@ public class HistoryOperation {
 		builder.append("]");
 		return builder.toString();
 	}
+
 }

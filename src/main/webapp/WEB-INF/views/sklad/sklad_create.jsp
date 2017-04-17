@@ -6,6 +6,9 @@
 	<head>    
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/CSS/style.css"/>
 		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8"> 
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 
 	</head>
 	<body>
 		<div id="header">
@@ -14,38 +17,37 @@
 			    	<img alt="" src="${pageContext.request.contextPath}/resources/img/ntck.png">	
 			    </div>	    
 			    <span>
-			    	<a href="${pageContext.servletContext.contextPath}/sklad//sklad_kladovschik//${findUser}">Главная</a>
-			    	<a>
-			    		Second Link
-			    	</a>
-			    	<a>
-			    		Third Link
-			    	</a>
+			    	<a href="${pageContext.servletContext.contextPath}/sklad/sklad_kladovschik/${id_klad}" class="botton">Главная</a>
+			    		<c:if test="${role.equals('ADMINISTRATOR')}">
+				           <a href="${pageContext.servletContext.contextPath}/historyOperation/historyOperations" class="botton" >История</a>
+			            </c:if>
+			    			<a href="${pageContext.servletContext.contextPath}/kladovshik/login" class="botton">Выход</a>
 			    </span>			    
 		    </div>
-		</div>
+		</div>	
 		<div class="main-sklad">		
-			<form class="subform" action="${pageContext.servletContext.contextPath}/sklad/add" method="get">		
+			<form class="subform" action="${pageContext.servletContext.contextPath}/sklad/add" method="post">		
 				<div class="form-center">
 					<p>
 						<label for="naim" class="label">Наименование</label>
-						<input type="text" name="naim" />
+						<input type="text" name="naim" required pattern="[а-яА-Я0-9]+"/>
 					</p>			
 					<p>
 						<!--<label for="naim2" class="label">naim2</label>--> 
 						<input type="hidden" name="naim2" value="0"/>
-					</p>			
-					<p>
-						<label for="edin" class="label">Единица измерения </label>
-						<input type="text" name="edin" />
-					</p>			
-					<p>
+					</p>	
+						
+					<!-- p>
 						<label for="kolvo" class="label">Общее количество</label>
-						<input type="text" name="kolvo" />
-					</p>			
+						<input type="text" name="kolvo" required pattern="[0-9]+"/>
+					</p-->			
 					<p>
 						<!--<label for="sklad_key" class="label">sklad_key</label>-->
 						<input type="hidden" name="sklad_key" value="0"/>
+					</p>	
+					<p>
+						<label for="isdel" class="label">единица измерения</label>
+						<input type="text" name="edin"/>
 					</p>			
 					<p>
 						<!--<label for="isdel" class="label">isdel</label>-->
@@ -61,7 +63,10 @@
 					</p>
 					<p>
 						<label for="used" class="label">Признак б/y</label>
-						<input type="text" name="used" />
+						<select id="select" name="used">
+							<option>Да</option>
+							<option>Нет</option>
+						</select>
 					</p>			
 					<p>
 						<!--<label for="karta" class="label">Номер карточки учета</label>-->
@@ -69,7 +74,7 @@
 					</p>
 					<p>
 						<label for="price" class="label">Средняя цена</label>
-						<input type="text" name="price" />
+						<input type="text" name="price" oninput="validateCommentsPrice(this)" required pattern="[0-9]+"/>
 					</p>
 					<p>
 						<!--<label for="in_bd" class="label">Признак наличия наиминования в базах</label>-->
@@ -100,16 +105,17 @@
 						<input type="hidden" name="bismt" value="0"/>
 					</p>			
 					<p>
-						<input type="hidden" name="id" value="0" />
-					</p>						
-					<p>
-							<label for="bismt" class="label">bismt</label>	
+						<input type="hidden" name="id_sklad" value="0" />
+					</p>	
+					
+					<!-- p>
+							<!-- label for="bismt" class="label">bismt</label 
 							<select id="select" name="user_id">	
 								<c:forEach items="${kladovshikList}" var="kladovshikListItem">
 									<option value="${kladovshikListItem.id}">${kladovshikListItem.login}</option>
 								</c:forEach>
 							</select>
-					</p>
+					</p-->					
 					<div class="button-create-center">
 						<button type="submit" class="botton" >Создать карточку</button>
 					</div>

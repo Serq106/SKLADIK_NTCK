@@ -15,9 +15,9 @@
 <br/>
 
 <h2><a href="kladovshik/login" > Авторизация | </a>
-<a href="historyOperation/historyOperations"> История| </a></h2>
+<a href="historyOperation/historyOperations"> История| </a>
+<a href="sklad/pdf"> pdf| </a></h2>
 
-"${findUser}"+++
 <br/>
 </body>
 </html>

@@ -14,10 +14,28 @@
 		<title>Карточка</title>
 	</head>
 	<body>	
-
+		<div id="header">
+			<div id='header_items'>
+			    <div id="text-left">
+			    	<img alt="" src="${pageContext.request.contextPath}/resources/img/ntck.png">	
+			    </div>	    
+			    <span>
+			    	<a href="${pageContext.servletContext.contextPath}/sklad/sklad_kladovschik/${id_klad}" class="botton">Главная</a>
+			    		<c:if test="${role.equals('ADMINISTRATOR')}">
+				           <a href="${pageContext.servletContext.contextPath}/historyOperation/historyOperations" class="botton" >История</a>
+			            </c:if>
+			    			<a href="${pageContext.servletContext.contextPath}/kladovshik/login" class="botton">Выход</a>
+			    </span>			    
+		    </div>
+		</div>	
+		
 		<div class="main-sklad">
-		<p>${qweqwe} </p>
-			<table class="tg">
+		<a href="/weew/skladH/skladH_in" class="botton">Оформить приход</a>
+		<a href="/weew/skladH/skladH_out" class="botton">Оформить списание</a>
+		<a href="/weew/sklad/pdf" class="botton">Отчет прихода</a>
+		<br />
+		<br />
+		<table class="tg">
 		        <tr>
 		        	<th width="80">ID</th>
 		            <th width="80">in out</th>
@@ -44,9 +62,7 @@
 		                <td>${list.alt_edin}</td>                
 		             </tr>
 		        </c:forEach>
-		    </table>   
-			<p><a href="/weew/skladH/skladH_in">Оформить приход</a></p>
-			<p><a href="/weew/skladH/skladH_out">Оформить списание</a></p>
+		    </table>  
 		</div>
 	</body>
 </html>

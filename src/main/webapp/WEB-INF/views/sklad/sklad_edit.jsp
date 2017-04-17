@@ -8,6 +8,20 @@
 	    <title>Books Page</title>    
 	</head>
 	<body>	
+		<div id="header">
+			<div id='header_items'>
+			    <div id="text-left">
+			    	<img alt="" src="${pageContext.request.contextPath}/resources/img/ntck.png">	
+			    </div>	    
+			    <span>
+			    	<a href="${pageContext.servletContext.contextPath}/sklad/sklad_kladovschik/${id_klad}" class="botton">Главная</a>
+			    		<c:if test="${role.equals('ADMINISTRATOR')}">
+				           <a href="${pageContext.servletContext.contextPath}/historyOperation/historyOperations" class="botton" >История</a>
+			            </c:if>
+			    		 <a href="${pageContext.servletContext.contextPath}/kladovshik/login" class="botton">Выход</a>
+			    </span>			    
+		    </div>
+		</div>
 		<div class="main-sklad">	
 			<form class="subform" action="${pageContext.servletContext.contextPath}/sklad/edit" method="post">
 				<div class="form-center">
@@ -18,21 +32,12 @@
 					<p>
 						<label for="edin" class="label">Единица измерения</label>
 						<input type="text" name="edin" value="${findSklad.edin }"/>
-					</p>	
-					<p>
-						<label for="kolvo" class="label">Общее количество</label>
-						<input type="text" name="kolvo" value="${findSklad.kolvo }"/>
 					</p>
-				
 					<p>
 						<label for="used" class="label">Признак б/y</label>
 						 <input type="text" name="used" value="${findSklad.used }"/>
 					</p>	
-					<p>
-						<label for="price" class="label">Средняя цена</label>
-						<input type="text" name="price" value="${findSklad.price }"/>
-					</p>
-					<input type="hidden" name="id" value="${findSklad.id }" />	
+					<input type="hidden" name="id_sklad" value="${findSklad.id_sklad }" />	
 					
 					<div class="button-create-center">		
 						<p>

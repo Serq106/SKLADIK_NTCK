@@ -50,11 +50,6 @@ public class KladovshikServiceImpl implements IKladovshikService{
 	}
 
 	@Override
-	public List<Kladovshik> kladovshikBySklad(int id_sklad) {		
-		return this.dao.kladovshikBySklad(id_sklad);
-	}
-
-	@Override
 	public List<Sklad> SkladBykladovshik(int id_kladovshok) {
 		return this.dao.SkladBykladovshik(id_kladovshok);
 	}

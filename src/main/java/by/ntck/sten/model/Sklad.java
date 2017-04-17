@@ -20,9 +20,9 @@ import javax.persistence.Table;
 public class Sklad {
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "id_sklad")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int id_sklad;
 
 	@Column(name = "naim")
 	private String naim;
@@ -31,7 +31,7 @@ public class Sklad {
 	private String edin;
 
 	@Column(name = "kolvo")
-	private float kolvo;
+	private double kolvo;
 
 	@Column(name = "karta")
 	private String karta;
@@ -91,12 +91,12 @@ public class Sklad {
 		this.kladovshik = kladovshik;
 	}
 
-	public int getId() {
-		return id;
+	public int getId_sklad() {
+		return id_sklad;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId_sklad(int id_sklad) {
+		this.id_sklad = id_sklad;
 	}
 
 	public String getNaim() {
@@ -115,11 +115,11 @@ public class Sklad {
 		this.edin = edin;
 	}
 
-	public float getKolvo() {
+	public double getKolvo() {
 		return kolvo;
 	}
 
-	public void setKolvo(float kolvo) {
+	public void setKolvo(double kolvo) {
 		this.kolvo = kolvo;
 	}
 
@@ -243,11 +243,22 @@ public class Sklad {
 		this.bismt = bismt;
 	}
 
+	public Sklad() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Sklad(int id_sklad, double kolvo) {
+		super();
+		this.id_sklad = id_sklad;		
+		this.kolvo = kolvo;		
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Sklad [id=");
-		builder.append(id);
+		builder.append("Sklad [id_sklad=");
+		builder.append(id_sklad);
 		builder.append(", naim=");
 		builder.append(naim);
 		builder.append(", edin=");
@@ -288,5 +299,5 @@ public class Sklad {
 		builder.append(kladovshik);
 		builder.append("]");
 		return builder.toString();
-	}
+	}	
 }

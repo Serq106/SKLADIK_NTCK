@@ -60,9 +60,6 @@ public class User {
 	public Kladovshik getKladovshik() {
 		return kladovshik;
 	}
-
-	
-	
 	
 	public User(String login, String fullname) {
 		super();
@@ -70,15 +67,10 @@ public class User {
 		this.fullname = fullname;
 	}
 
-
-
-
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
 
 
 	public User(int id, String login, int department_id, String fullname, String lastname, String firstname,

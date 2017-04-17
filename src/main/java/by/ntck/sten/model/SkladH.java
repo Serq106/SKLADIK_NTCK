@@ -1,10 +1,16 @@
 package by.ntck.sten.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,99 +19,101 @@ public class SkladH {
 
 	@Id
 	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name = "sklad_id")
-	private int sklad_id;
-		
-	@Column(name = "operthiya")	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_sklad", nullable = true)
+	private Sklad sklad; 
+
+
+	@Column(name = "operthiya")
 	private String operthiya;
-	
+
 	@Column(name = "kol_vo")
 	private float kol_vo;
-	
+
 	@Column(name = "data_oper")
 	private String data_oper;
-	
+
 	@Column(name = "ttn")
 	private String ttn;
-	
+
 	@Column(name = "postavhik")
 	private String postavhik;
-	
+
 	@Column(name = "data_zayavki")
 	private String data_zayavki;
-	
+
 	@Column(name = "data_ttn")
 	private String data_ttn;
-	
+
 	@Column(name = "kod_zatrat")
 	private String kod_zatrat;
-	
+
 	@Column(name = "naim")
 	private String naim;
-	
+
 	@Column(name = "ttni")
 	private String ttni;
-	
+
 	@Column(name = "fio_zakazchika")
 	private String fio_zakazchika;
-	
+
 	@Column(name = "isdel")
 	private String isdel;
-	
+
 	@Column(name = "is_del")
 	private String is_del;
-	
+
 	@Column(name = "kol_vo_old")
 	private int kol_vo_old;
-	
+
 	@Column(name = "obrabotano")
 	private String obrabotano;
-	
+
 	@Column(name = "naim_doc")
 	private String naim_doc;
-	
+
 	@Column(name = "rep_in")
 	private String rep_in;
-	
+
 	@Column(name = "tab_nom_mol")
 	private String tab_nom_mol;
-	
+
 	@Column(name = "sklad_out_key")
 	private int sklad_out_key;
-	
+
 	@Column(name = "sklad_in_key")
 	private int sklad_in_key;
-	
+
 	@Column(name = "rep_status")
 	private int rep_status;
-	
+
 	@Column(name = "alt_edin")
 	private String alt_edin;
-	
+
 	@Column(name = "alt_kol_vo")
 	private float alt_kol_vo;
-	
+
 	@Column(name = "import_")
 	private String import_;
-	
+
 	@Column(name = "id_zayavka")
 	private int id_zayavka;
-	
+
 	@Column(name = "id_ord")
 	private int id_ord;
-	
+
 	@Column(name = "real_data_oper")
 	private String real_data_oper;
-	
+
 	@Column(name = "link")
-	private int link;	
-	
+	private int link;
+
 	@Column(name = "master")
 	private String master;
-		
+
 	public int getId() {
 		return id;
 	}
@@ -113,14 +121,12 @@ public class SkladH {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public int getSklad_id() {
-		return sklad_id;
-	}
 
-	public void setSklad_id(int sklad_id) {
-		this.sklad_id = sklad_id;
-	}
+	/*
+	 * public int getSklad_id() { return sklad_id; }
+	 * 
+	 * public void setSklad_id(int sklad_id) { this.sklad_id = sklad_id; }
+	 */
 
 	public String getOperthiya() {
 		return operthiya;
@@ -128,8 +134,8 @@ public class SkladH {
 
 	public void setOperthiya(String operthiya) {
 		this.operthiya = operthiya;
-	}	
-		
+	}
+
 	public float getKol_vo() {
 		return kol_vo;
 	}
@@ -261,7 +267,7 @@ public class SkladH {
 	public String getTab_nom_mol() {
 		return tab_nom_mol;
 	}
-	
+
 	public void setTab_nom_mol(String tab_nom_mol) {
 		this.tab_nom_mol = tab_nom_mol;
 	}
@@ -353,14 +359,24 @@ public class SkladH {
 	public void setMaster(String master) {
 		this.master = master;
 	}
+	
+	
+
+	public Sklad getSklad() {
+		return sklad;
+	}
+
+	public void setSklad(Sklad sklad) {
+		this.sklad = sklad;
+	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("SkladH [id=");
 		builder.append(id);
-		builder.append(", sklad_id=");
-		builder.append(sklad_id);
+		builder.append(", sklad=");
+		builder.append(sklad);
 		builder.append(", operthiya=");
 		builder.append(operthiya);
 		builder.append(", kol_vo=");
@@ -422,5 +438,5 @@ public class SkladH {
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
 }

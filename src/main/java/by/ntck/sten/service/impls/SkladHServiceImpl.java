@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import by.ntck.sten.dao.ISkladHDao;
+import by.ntck.sten.model.Sklad;
 import by.ntck.sten.model.SkladH;
 import by.ntck.sten.service.ISkladHService;
 
@@ -52,7 +53,11 @@ public class SkladHServiceImpl implements ISkladHService {
 		
 	}
 	@Override
-	public Double Count(int id_klad) {		
-		return this.daoSkladH.Count(id_klad);
+	public Double Count(int id_klad, int id_sklad) {		
+		return this.daoSkladH.Count(id_klad, id_sklad);
+	}
+	@Override
+	public List<SkladH> Count_uzdel(int id_klad, int id_sklad) {
+		return this.daoSkladH.Count_uzdel(id_klad, id_sklad);
 	}
 }

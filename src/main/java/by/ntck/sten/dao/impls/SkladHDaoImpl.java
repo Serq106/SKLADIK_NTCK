@@ -1,6 +1,8 @@
 package by.ntck.sten.dao.impls;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import by.ntck.sten.dao.ISkladHDao;
 import by.ntck.sten.model.Kladovshik;
+import by.ntck.sten.model.Sklad;
 import by.ntck.sten.model.SkladH;
 
 @Repository
@@ -74,7 +77,7 @@ public class SkladHDaoImpl implements ISkladHDao  {
 	public List<SkladH> skladHById(int sklad_id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<SkladH> skladHList = (List<SkladH>) session.createQuery(
-				"from SkladH as skladH where skladH.sklad_id='" + sklad_id + "'").list();
+				"from SkladH as skladH where skladH.sklad = '" + sklad_id + "'").list();
 		
 		LOG.info("skladHById successfully loaded. skladHById detalis: ");
 
@@ -90,17 +93,25 @@ public class SkladHDaoImpl implements ISkladHDao  {
 	}
 
 	@Override
-	public Double Count(int id_klad) {
+	public Double Count(int id_klad, int id_sklad) {
 	Session session = this.sessionFactory.getCurrentSession();
-		double count =  (double) session.createNativeQuery(
-				"SELECT sum(kol_vo) FROM sklad s INNER JOIN SkladH sh ON (sh.`sklad_id` = s.`id`) "+
-				" INNER JOIN `sklad_sk` sk ON (sk.`sklad_id` =s.`id`)"+
-				" INNER JOIN `sklad_kladovshik` k ON (k.`id` = sk.`kladovshik_id`)"+
-				" WHERE sh.`operthiya`='in' AND k.`id`= 1 ")
+		Double count = (Double) session.createNativeQuery(
+				"SELECT sum(kol_vo) FROM sklad s INNER JOIN SkladH sh ON (sh.id_sklad = s.id_sklad) "+
+				" INNER JOIN sklad_sk sk ON (sk.sklad_id =s.id_sklad)"+
+				" INNER JOIN sklad_kladovshik k ON (k.id = sk.kladovshik_id)"+
+				" WHERE sh.operthiya='in' AND k.id='" + id_klad  + "' AND sh.id_sklad = '" + id_sklad  + "'")
 				.getSingleResult();
 		return count;
-		//return (double) 100500;
 	}
-	
 
+	@Override
+	public List<SkladH> Count_uzdel(int id_klad, int id_sklad) { 
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		List<SkladH> skladHList = (List<SkladH>) session.createQuery(
+				"from SkladH as skladH where skladH.operthiya='in' and skladH.sklad = '" + id_sklad + "'").list();
+		
+		return skladHList;	
+	}
 }
+	

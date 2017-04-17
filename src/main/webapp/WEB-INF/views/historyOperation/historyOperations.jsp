@@ -25,7 +25,7 @@
 		        </tr>
 		        <c:forEach items="${listHistory}" var="list">
 		            <tr>
-		                <td>${list.id}</td>
+		                <td>${list.id_historyOperation}</td>
 		                <td>${list.tableName}</td>
 		                <td>${list.id_row}</td>
 		                <td>${list.date}</td>

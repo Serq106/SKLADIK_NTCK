@@ -67,15 +67,4 @@ public class SkladDaoImpl implements ISkladDao {
 		}
 		return skladList;
 	}
-
-	@Override
-	public List<Kladovshik> kladovshikBySklad(int id_sklad) {
-			Session session = this.sessionFactory.getCurrentSession();
-			Query q = (Query) session.createQuery(
-					"select k from Kladovshik as k left join k.id as kid where kid.id = :id_sklad").setInteger("id_sklad", id_sklad);
-
-			List<Kladovshik> kladovshikList = q.list();
-			LOG.info("kladovshikBySklad successfully loaded. kladovshikBySklad detalis: ");
-			return kladovshikList;
-		}
 }
