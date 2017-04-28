@@ -39,7 +39,8 @@
 		        <tr>
 		        	<th width="80">ID</th>
 		            <th width="80">in out</th>
-		            <th width="120">количество</th>
+		            <th width="120">Исходное количество</th>
+		            <th width="120">остаток</th>
 		            <th width="120">Дата операции</th>
 		            <th width="60">Поставщик</th>
 		            <th width="80">Дата документа</th>
@@ -52,6 +53,7 @@
 		            <tr>
 		                <td>${list.id}</a></td>
 		                <td>${list.operthiya}</td>
+		                <td>${list.kol_vo_old}</td>
 		                <td>${list.kol_vo}</td>
 		                <td>${list.data_oper}</td>
 		                <td>${list.postavhik}</td>

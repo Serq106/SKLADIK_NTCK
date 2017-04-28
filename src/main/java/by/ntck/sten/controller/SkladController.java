@@ -1,5 +1,6 @@
 package by.ntck.sten.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -85,7 +86,7 @@ public class SkladController {
 			@RequestParam("yatheika") String yatheika, Model model, HttpServletRequest request) {
 
 		int id_kladovshik = ((Kladovshik) request.getSession().getAttribute("kladovshik")).getId();
-		Date currentDate = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 		Sklad sklad = new Sklad();
 		sklad.setId_sklad(id_sklad);
 		sklad.setBismt(bismt);
@@ -111,7 +112,7 @@ public class SkladController {
 		sklad.setKladovshik(list);
 		skladService.add(sklad);
 
-		this.history(0, currentDate.toString(), sklad.getId_sklad(), "Sklad", "add", id_kladovshik);
+		this.history(0, dateFormat.format( new Date() ), sklad.getId_sklad(), "Sklad", "add", id_kladovshik);
 
 		return "redirect:/sklad/sklad_kladovschik/" + id_kladovshik;
 	}
@@ -150,8 +151,8 @@ public class SkladController {
 		sklad.setKladovshik(list);
 		skladService.update(sklad);
 
-		Date currentDate = new Date();
-		this.history(0, currentDate.toString(), id_sklad, "Sklad", "edit", id_kladovshik);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+		this.history(0, dateFormat.format( new Date() ), id_sklad, "Sklad", "edit", id_kladovshik);
 
 		return "redirect:/sklad/sklad_kladovschik/" + id_kladovshik;
 	}
@@ -179,5 +180,11 @@ public class SkladController {
 		model.addAttribute("role", this.kladovshikService.getRole(kladocshik.getId()));
 
 		return "sklad/sklads";
+	}
+	
+	@RequestMapping(value="/view", method = RequestMethod.GET)
+	public String view(Model model, HttpServletRequest request){	
+		model.addAttribute("listSklads", this.skladService.list());
+		return "sklad/view";
 	}
 }

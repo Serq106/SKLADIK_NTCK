@@ -32,9 +32,31 @@ public class HistoryOperation {
 	@Column(name = "date")
 	private String date;
 
+	@Column(name = "kol_vo")
+	private double kol_vo;
+
+	@Column(name = "kol_vo_old")
+	private double kol_vo_old;
+	
 	@Column(name = "operation")
 	private String operation;
+	
+	public double getKol_vo() {
+		return kol_vo;
+	}
 
+	public void setKol_vo(double kol_vo) {
+		this.kol_vo = kol_vo;
+	}
+
+	public double getKol_vo_old() {
+		return kol_vo_old;
+	}
+
+	public void setKol_vo_old(double kol_vo_old) {
+		this.kol_vo_old = kol_vo_old;
+	}
+	
 	public Kladovshik getKladovshik() {
 		return kladovshik;
 	}

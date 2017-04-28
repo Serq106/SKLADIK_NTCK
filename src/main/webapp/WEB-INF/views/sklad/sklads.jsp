@@ -54,6 +54,7 @@
 
 		<table class="tg">
 			<tr>
+				<th width="120">ид</th>
 				<th width="120">Наименование</th>
 				<th width="120">Единица измерения</th>
 				<th width="120">Общее количество</th>
@@ -66,6 +67,7 @@
 			</tr>
 			<c:forEach items="${listKladovschikSklad}" var="list">
 				<tr>
+					<td>${list.id_sklad}</td>
 					<td><a
 						href="${pageContext.servletContext.contextPath}/skladH/skladsH/${list.id_sklad}">${list.naim}</a></td>
 					<td>${list.edin}</td>

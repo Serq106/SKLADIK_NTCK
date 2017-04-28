@@ -24,8 +24,8 @@
         
         <p class="remember_me">
           <label>
-            <input type="checkbox" name="remember_me" id="remember_me">
-            Запомнить меня
+            <a	href="${pageContext.servletContext.contextPath}/sklad/view"
+			class="botton">просмотр</a>
           </label>
         </p>
         <p class="submit">

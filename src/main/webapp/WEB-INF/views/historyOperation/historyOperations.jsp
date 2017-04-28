@@ -17,11 +17,12 @@
 			<table class="tg">
 		        <tr>
 		            <th width="80">Ид</th>
-		            <th width="120">имя</th>
-		            <th width="120">edin</th>
-		            <th width="120">kolvo</th>
-		            <th width="60">sklad_key</th>
-		            <th width="60">user_id</th>
+		            <th width="120">имя таблице</th>
+		            <th width="120">ид_строки</th>
+		            <th width="120">дата операции</th>
+		            <th width="60">операция</th>
+		            <th width="60">пользователь</th>
+		            <th width="60">количество</th>
 		        </tr>
 		        <c:forEach items="${listHistory}" var="list">
 		            <tr>
@@ -31,6 +32,7 @@
 		                <td>${list.date}</td>
 		                <td>${list.operation}</td>
 		                <td>${list.kladovshik}</td>
+		                <td>${list.kol_vo_old}</td>
 		             </tr>
 		        </c:forEach>
 		    </table>		

@@ -2,6 +2,8 @@ package by.ntck.sten.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -59,7 +61,14 @@ public class SkladHController {
 	public void setKladovshikService(IKladovshikService kladovshikService) {
 		this.kladovshikService = kladovshikService;
 	}
+	
+	@RequestMapping(value = "/skladsH_view/{id}")
+	public String skladH_view(@PathVariable("id") int id ,Model model, HttpServletRequest request){
+		model.addAttribute("skladsH", skladHService.skladHById(id));
 		
+		return "skladH/skladsH_view";
+	}
+	
 	@RequestMapping(value = "/skladsH/{id}")
 	public String liStringSkladH(@PathVariable("id") int id ,Model model, HttpServletRequest request){
 		model.addAttribute("skladsH", skladHService.skladHById(id));
@@ -89,13 +98,15 @@ public class SkladHController {
 		return "skladH/skladH_out";
 	}
 	
-	public void history(int id_historyOperation, String Dates, int Id_row, String TableName,  String Operation,  int id_kladovshik){
+	public void history(int id_historyOperation, String Dates, int Id_row, String TableName,  String Operation,  int id_kladovshik, double kol_vo, double kol_vo_old){
 		HistoryOperation historyOperation = new HistoryOperation();
 		historyOperation.setId_historyOperation(id_historyOperation);;
 		historyOperation.setDate(Dates);
 		historyOperation.setId_row(Id_row);
 		historyOperation.setOperation(Operation);
 		historyOperation.setTableName(TableName);		
+		historyOperation.setKol_vo(kol_vo);
+		historyOperation.setKol_vo_old(kol_vo_old);
 		historyOperation.setKladovshik(kladovshikService.getById(id_kladovshik));
 		this.historyOperationService.add(historyOperation);			
 	}
@@ -114,8 +125,7 @@ public class SkladHController {
 			HttpServletRequest request, Model model){
 		
 		int sklad_id = ((Sklad)request.getSession().getAttribute("sklad")).getId_sklad();	
-		String naim = ((Sklad)request.getSession().getAttribute("sklad")).getNaim();	
-		Date currentDate = new Date();
+		String naim = ((Sklad)request.getSession().getAttribute("sklad")).getNaim();	 
 		SkladH skladH = new SkladH();	
 		skladH.setId(id);
 		skladH.setOperthiya(operthiya);
@@ -131,7 +141,7 @@ public class SkladHController {
 		skladH.setFio_zakazchika(fio_zakazchika);
 		skladH.setIsdel(isdel);
 		skladH.setIs_del(is_del);
-		skladH.setKol_vo_old(kol_vo_old);
+		skladH.setKol_vo_old(kol_vo);
 		skladH.setObrabotano(obrabotano);
 		skladH.setNaim_doc(naim_doc);
 		skladH.setRep_in(rep_in);
@@ -155,35 +165,59 @@ public class SkladHController {
 		Sklad sklad = skladService.getById(sklad_id);
 		sklad.setKolvo(count);
 		skladService.update(sklad);
-		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 		model.addAttribute("id_klad", id_kladovshik);
 		
-		this.history(0, currentDate.toString(), skladH.getId(), "SkladH", operthiya, id_kladovshik );
+		this.history(0, dateFormat.format( new Date() ), skladH.getId(), "SkladH", operthiya, id_kladovshik, count, 0 );
 		
 		return "redirect:/skladH/skladsH/"+ sklad_id;
 	}
 	
 	@RequestMapping(value = "/adds", method = RequestMethod.GET)
 	public String add(@RequestParam("kol_vo") float kol_vo, HttpServletRequest request, Model model){
-		
-		Date currentDate = new Date();				
+		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();				
 		int sklad_id = ((Sklad)request.getSession().getAttribute("sklad")).getId_sklad();	
-		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 		List<SkladH> skladH_out = skladHService.Count_uzdel(0, sklad_id);
+		SkladH skladH = new SkladH();
 		float t = kol_vo;
 		int summa = 0;
 		
 		for (SkladH skladH2 : skladH_out) {	
 			if (kol_vo > 0 ){
 				summa = (int) (kol_vo - skladH2.getKol_vo());
-				if(summa > 0 ){
+				if(summa > 0 && skladH2.getKol_vo() != 0){
 					SkladH skladH_ = skladHService.getById(skladH2.getId());
+					this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), skladH2.getKol_vo() );
 					skladH_.setKol_vo(0);
 					skladHService.update(skladH_);	
-				}else{
+					skladH.setId(0);
+					skladH.setOperthiya("out");
+					skladH.setKol_vo(skladH2.getKol_vo());
+					skladH.setData_oper(dateFormat.format( new Date() ));
+					skladH.setSklad(skladService.getById(sklad_id));
+					skladHService.add(skladH);
+					double count = skladHService.Count(id_kladovshik, sklad_id);
+					Sklad sklad = skladService.getById(sklad_id);
+					sklad.setKolvo(count);
+					skladService.update(sklad);	
+					
+				}else if (summa <= 0 && skladH2.getKol_vo() != 0){
 					SkladH skladH_ = skladHService.getById(skladH2.getId());
 					skladH_.setKol_vo(skladH2.getKol_vo() - kol_vo);
 					skladHService.update(skladH_);	
+					
+					this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), kol_vo );
+					skladH.setId(0);
+					skladH.setOperthiya("out");
+					skladH.setKol_vo(kol_vo);
+					skladH.setData_oper(dateFormat.format( new Date() ));
+					skladH.setSklad(skladService.getById(sklad_id));
+					skladHService.add(skladH);
+					double count = skladHService.Count(id_kladovshik, sklad_id);
+					Sklad sklad = skladService.getById(sklad_id);
+					sklad.setKolvo(count);
+					skladService.update(sklad);	
 				}
 				
 				kol_vo = summa;
@@ -191,21 +225,11 @@ public class SkladHController {
 			}
 		}
 		
-		SkladH skladH = new SkladH();	
-		skladH.setId(0);
-		skladH.setOperthiya("out");
-		skladH.setKol_vo(t);
-		skladH.setData_oper(currentDate.toString());
-		skladH.setSklad(skladService.getById(sklad_id));
-		skladHService.add(skladH);
+			
+			
 		
-		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();	
-		double count = skladHService.Count(id_kladovshik, sklad_id);
-		Sklad sklad = skladService.getById(sklad_id);
-		sklad.setKolvo(count);
-		skladService.update(sklad);	
 		
-		this.history(0, currentDate.toString(), skladH.getId(), "SkladH", "out", id_kladovshik );
+		
 		
 		return "redirect:/skladH/skladsH/"+ sklad_id;
 	}
