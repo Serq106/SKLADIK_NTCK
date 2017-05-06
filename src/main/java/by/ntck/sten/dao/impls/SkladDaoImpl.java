@@ -67,4 +67,11 @@ public class SkladDaoImpl implements ISkladDao {
 		}
 		return skladList;
 	}
+
+	@Override
+	public List<Sklad> skladSearch(int sklad_id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Sklad> skladList = (List<Sklad>) session.createNativeQuery("SELECT * FROM sklad WHERE id_sklad LIKE %1 ").getResultList();
+		return skladList;
+	}
 }

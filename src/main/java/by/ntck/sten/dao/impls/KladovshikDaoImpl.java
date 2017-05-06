@@ -126,4 +126,25 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 		return EMPTY_ROLE;
 
 	}
+
+	@Override
+	public List<Sklad> SkladBykladovshikSearch(int id_kladovshok, int index, String naim) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Sklad> SkladList;
+		if(index != 0){
+			Query q = session.createQuery("select s from Sklad s INNER JOIN s.kladovshik kladovshik"
+					+ " where kladovshik.id = '" + id_kladovshok + "' and s.isdel = 0 and s.naim like '" + naim +  "%'");
+			SkladList = q.list(); // 0 - склад не удален 1 - склад удален
+		} else
+		{
+			Query q = session.createQuery("select s from Sklad s INNER JOIN s.kladovshik kladovshik"
+					+ " where  s.isdel = 0 and s.naim like '" + naim +  "%'");
+			SkladList = q.list(); // 0 - склад не удален 1 - склад удален
+		}
+		
+		
+		LOG.info("kladovshikBySklad successfully loaded. kladovshikBySklad detalis: ");
+
+		return SkladList;
+	}
 }

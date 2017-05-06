@@ -58,5 +58,11 @@ public class KladovshikServiceImpl implements IKladovshikService{
 	public String getRole(int id) {
 		return this.dao.getRole(id);
 	}
+
+	@Override
+	public List<Sklad> SkladBykladovshikSearch(int id_kladovshok, int index, String naim) {
+		return this.dao.SkladBykladovshikSearch(id_kladovshok, index, naim);
+	}
+
 }
 

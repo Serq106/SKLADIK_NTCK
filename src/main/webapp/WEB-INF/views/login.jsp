@@ -24,8 +24,8 @@
         
         <p class="remember_me">
           <label>
-            <a	href="${pageContext.servletContext.contextPath}/sklad/view"
-			class="botton">просмотр</a>
+            <a	href="${pageContext.servletContext.contextPath}/sklad/view" 
+			class="botton">Просмотр</a>
           </label>
         </p>
         <p class="submit">

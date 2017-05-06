@@ -55,8 +55,7 @@
 			<c:forEach items="${listSklads}" var="list">
 				<tr>
 					<td>${list.id_sklad}</td>
-					<td><a
-						href="${pageContext.servletContext.contextPath}/skladH/skladsH_view/${list.id_sklad}">${list.naim}</a></td>
+					<td>${list.naim}</td>
 					<td>${list.edin}</td>
 					<td>${list.kolvo}</td>
 					<td>${list.used}</td>

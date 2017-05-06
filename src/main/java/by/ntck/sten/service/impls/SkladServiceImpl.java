@@ -44,4 +44,9 @@ public class SkladServiceImpl implements ISkladService {
 		return this.daoSklad.list();
 	}
 
+	@Override
+	public List<Sklad> skladSearch(int sklad_id) {
+		return this.daoSklad.skladSearch(sklad_id);
+	}
+
 }

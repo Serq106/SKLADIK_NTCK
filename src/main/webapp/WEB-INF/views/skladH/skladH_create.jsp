@@ -14,6 +14,7 @@
 				<img alt=""
 					src="${pageContext.request.contextPath}/resources/img/ntck.png">
 			</div>
+			<span><h2>Оформление прихода</h2></span>  
 			<span> <a
 				href="${pageContext.servletContext.contextPath}/sklad/sklad_kladovschik/${id_klad}"
 				class="botton">Главная</a> <c:if
@@ -36,7 +37,7 @@
 					name="operthiya" value="in" />
 
 				<p>
-					<login for="kol_vo" class="label">количество</login>
+					<login for="kol_vo" class="label">Количество</login>
 					<input type="text" name="kol_vo" />
 				</p>
 				<p>
@@ -47,7 +48,7 @@
 					<!-- <login for="ttn" class="label">номер документа</login>-->
 					<input type="hidden" name="ttn" value="0" />
 				</p>
-				<login for="postavhik" class="label">поставщик</login>
+				<login for="postavhik" class="label">Поставщик</login>
 				<input type="text" name="postavhik" />
 				</p>
 				<p>
@@ -55,7 +56,7 @@
 					<input type="hidden" name="data_zayavki" value="0" />
 				</p>
 				<p>
-					<login for="data_ttn" class="label">дата документа</login>
+					<login for="data_ttn" class="label">Дата документа</login>
 					<input type="date" name="data_ttn" />
 				</p>
 				<p>
@@ -127,7 +128,7 @@
 					<input type="hidden" name="id_ord" value="0" />
 				</p>
 				<p>
-					<login for="alt_edin" class="label">альтернативная ед.
+					<login for="alt_edin" class="label">Альтернативная ед.
 					измерения</login>
 					<input type="text" name="alt_edin" />
 				</p>

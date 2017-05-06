@@ -29,7 +29,7 @@ import by.ntck.sten.service.ISkladService;
 @RequestMapping("sklad")
 public class SkladController {
 	public static final Logger LOG = Logger.getLogger(SkladController.class);
-
+	
 	private ISkladService skladService;
 
 	private ISkladHService skladHService;
@@ -153,8 +153,12 @@ public class SkladController {
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 		this.history(0, dateFormat.format( new Date() ), id_sklad, "Sklad", "edit", id_kladovshik);
-
-		return "redirect:/sklad/sklad_kladovschik/" + id_kladovshik;
+		int index = (int) request.getSession().getAttribute("view_edit");
+		if(index != 0)
+			return "redirect:/sklad/sklad_kladovschik/" + id_kladovshik;
+		else {
+			return "redirect:/sklad/view_edit";	
+		}
 	}
 
 	@RequestMapping("/remove/{id_sklad}")
@@ -163,11 +167,15 @@ public class SkladController {
 		Sklad sklad = skladService.getById(id_sklad);
 		sklad.setIsdel("1");
 		skladService.update(sklad);
-
+		int index = (int) request.getSession().getAttribute("view_edit");
 		Date currentDate = new Date();
 		int id_kladovshik = ((Kladovshik) request.getSession().getAttribute("kladovshik")).getId();
 		this.history(0, currentDate.toString(), id_sklad, "Sklad", "remove", id_kladovshik);
-		return "redirect:/sklad/sklad_kladovschik/" + id_kladovshik;
+		if(index != 0)
+			return "redirect:/sklad/sklad_kladovschik/" + id_kladovshik;
+		else {
+			return "redirect:/sklad/view_edit";			
+		}
 	}
 
 	@RequestMapping(value = "/sklad_kladovschik/{id}", method = RequestMethod.GET)
@@ -177,14 +185,47 @@ public class SkladController {
 		model.addAttribute("listKladovschikSklad", this.kladovshikService.SkladBykladovshik(kladocshik.getId()));
 		int id_kladovshik = ((Kladovshik) request.getSession().getAttribute("kladovshik")).getId();
 		model.addAttribute("id_klad", id_kladovshik);
-		model.addAttribute("role", this.kladovshikService.getRole(kladocshik.getId()));
-
+		request.getSession().setAttribute("view_edit", 1);
+		int view_edit = ((int) request.getSession().getAttribute("view_edit"));
+		model.addAttribute("view_edit", view_edit);
+		model.addAttribute("role", this.kladovshikService.getRole(kladocshik.getId()));		
+		
 		return "sklad/sklads";
 	}
 	
+	@RequestMapping(value = "/search/{id}", method = RequestMethod.GET)
+	public String search(@PathVariable("id") int id,  @RequestParam("naim") String naim,
+			Model model, HttpServletRequest request) {
+		request.getSession().setAttribute("view_edit", 0);
+		Kladovshik kladocshik = this.kladovshikService.getById(id);
+		int index = (int) request.getSession().getAttribute("view_edit");
+		model.addAttribute("listKladovschikSklad", this.kladovshikService.SkladBykladovshikSearch(id,index, naim));
+		int id_kladovshik = ((Kladovshik) request.getSession().getAttribute("kladovshik")).getId();
+		int view_edit = ((int) request.getSession().getAttribute("view_edit"));
+		model.addAttribute("view_edit", view_edit);
+		model.addAttribute("id_klad", id_kladovshik);
+		model.addAttribute("role", this.kladovshikService.getRole(kladocshik.getId()));
+		
+		return "sklad/sklads";
+
+			
+	}
+		
 	@RequestMapping(value="/view", method = RequestMethod.GET)
 	public String view(Model model, HttpServletRequest request){	
 		model.addAttribute("listSklads", this.skladService.list());
 		return "sklad/view";
+	}
+	
+	@RequestMapping(value="/view_edit", method = RequestMethod.GET)
+	public String view_edit(Model model, HttpServletRequest request){	
+		request.getSession().setAttribute("view_edit", 0);
+		model.addAttribute("listKladovschikSklad", this.skladService.list());
+		int id_kladovshik = ((Kladovshik) request.getSession().getAttribute("kladovshik")).getId();
+		Kladovshik kladocshik = this.kladovshikService.getById(id_kladovshik);
+		model.addAttribute("id_klad", id_kladovshik);
+		model.addAttribute("role", this.kladovshikService.getRole(kladocshik.getId()));
+		
+		return "sklad/sklads";
 	}
 }

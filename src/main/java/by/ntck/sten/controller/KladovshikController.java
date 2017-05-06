@@ -31,16 +31,10 @@ public class KladovshikController {
 	}
 
 	@RequestMapping(value = "/login" )
-	public String login(Model model) {
+	public String login(Model model, HttpServletRequest request) {
 		model.addAttribute("kladovshik", new Kladovshik());
-		if(her == -1){
-			model.addAttribute("note",  her);
-			her = 1;
-		}			
-		else{
-			model.addAttribute("note",  her);
-			
-		}
+		request.getSession().invalidate();
+		
 		return "/login";
 	}
 

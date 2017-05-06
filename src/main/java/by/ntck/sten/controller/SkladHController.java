@@ -61,21 +61,19 @@ public class SkladHController {
 	public void setKladovshikService(IKladovshikService kladovshikService) {
 		this.kladovshikService = kladovshikService;
 	}
-	
-	@RequestMapping(value = "/skladsH_view/{id}")
-	public String skladH_view(@PathVariable("id") int id ,Model model, HttpServletRequest request){
-		model.addAttribute("skladsH", skladHService.skladHById(id));
 		
-		return "skladH/skladsH_view";
-	}
-	
 	@RequestMapping(value = "/skladsH/{id}")
 	public String liStringSkladH(@PathVariable("id") int id ,Model model, HttpServletRequest request){
+		int index = (int) request.getSession().getAttribute("view_edit");
+		model.addAttribute("view_edit", index);
 		model.addAttribute("skladsH", skladHService.skladHById(id));
+		request.getSession().setAttribute("id_karta", id);
 		Sklad sklad = skladService.getById(id);
 		request.getSession().setAttribute("sklad", sklad);
 		int id_kladovshik = ((Kladovshik) request.getSession().getAttribute("kladovshik")).getId();
 		model.addAttribute("id_klad", id_kladovshik);
+		Kladovshik kladocshik = this.kladovshikService.getById(id_kladovshik);
+		model.addAttribute("role", this.kladovshikService.getRole(kladocshik.getId()));	
 		return "skladH/skladsH";
 	}
 	
@@ -92,7 +90,8 @@ public class SkladHController {
 		int sklad_id = ((Sklad)request.getSession().getAttribute("sklad")).getId_sklad();	
 		model.addAttribute("skladHList", skladHService.skladHById(sklad_id));
 		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();
-		model.addAttribute("id_klad", id_kladovshik);		
+		model.addAttribute("id_klad", id_kladovshik);	
+		
 		model.addAttribute("count", ""+ skladHService.Count(id_kladovshik, sklad_id));
 		
 		return "skladH/skladH_out";
@@ -173,65 +172,129 @@ public class SkladHController {
 		return "redirect:/skladH/skladsH/"+ sklad_id;
 	}
 	
+	@RequestMapping("/remove/{id_sklad}")
+	public String remove(@PathVariable("id_sklad") int id_sklad, HttpServletRequest request, Model model) {
+		int id_karta = (int) request.getSession().getAttribute("id_karta");
+		
+		if(skladHService.getById(id_sklad).getLink() != 0) {
+			SkladH skladH = skladHService.getById(skladHService.getById(id_sklad).getLink());
+			skladH.setKol_vo(skladHService.getById(id_sklad).getKol_vo() + skladH.getKol_vo());
+			skladHService.update(skladH);
+			
+		}
+		skladHService.remove(id_sklad);
+		
+	
+		return "redirect:/skladH/skladsH/" + id_karta;
+	}
+	
 	@RequestMapping(value = "/adds", method = RequestMethod.GET)
-	public String add(@RequestParam("kol_vo") float kol_vo, HttpServletRequest request, Model model){
+	public String add(@RequestParam("id") int id, @RequestParam("kol_vo") float kol_vo, HttpServletRequest request, Model model,
+			@RequestParam("fio_zakazchika") String fio_zakazchika, @RequestParam("tab_nom_mol") String tab_nom_mol){
 		int id_kladovshik = ((Kladovshik)request.getSession().getAttribute("kladovshik")).getId();				
 		int sklad_id = ((Sklad)request.getSession().getAttribute("sklad")).getId_sklad();	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 		List<SkladH> skladH_out = skladHService.Count_uzdel(0, sklad_id);
 		SkladH skladH = new SkladH();
-		float t = kol_vo;
 		int summa = 0;
 		
-		for (SkladH skladH2 : skladH_out) {	
-			if (kol_vo > 0 ){
-				summa = (int) (kol_vo - skladH2.getKol_vo());
-				if(summa > 0 && skladH2.getKol_vo() != 0){
-					SkladH skladH_ = skladHService.getById(skladH2.getId());
-					this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), skladH2.getKol_vo() );
-					skladH_.setKol_vo(0);
-					skladHService.update(skladH_);	
-					skladH.setId(0);
-					skladH.setOperthiya("out");
-					skladH.setKol_vo(skladH2.getKol_vo());
-					skladH.setData_oper(dateFormat.format( new Date() ));
-					skladH.setSklad(skladService.getById(sklad_id));
-					skladHService.add(skladH);
-					double count = skladHService.Count(id_kladovshik, sklad_id);
-					Sklad sklad = skladService.getById(sklad_id);
-					sklad.setKolvo(count);
-					skladService.update(sklad);	
-					
-				}else if (summa <= 0 && skladH2.getKol_vo() != 0){
-					SkladH skladH_ = skladHService.getById(skladH2.getId());
-					skladH_.setKol_vo(skladH2.getKol_vo() - kol_vo);
-					skladHService.update(skladH_);	
-					
-					this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), kol_vo );
-					skladH.setId(0);
-					skladH.setOperthiya("out");
-					skladH.setKol_vo(kol_vo);
-					skladH.setData_oper(dateFormat.format( new Date() ));
-					skladH.setSklad(skladService.getById(sklad_id));
-					skladHService.add(skladH);
-					double count = skladHService.Count(id_kladovshik, sklad_id);
-					Sklad sklad = skladService.getById(sklad_id);
-					sklad.setKolvo(count);
-					skladService.update(sklad);	
-				}
+		if(id != 0){
+			SkladH skladH_ = skladHService.getById(id);
+			double kol = skladH_.getKol_vo();
+			if(kol > kol_vo){
+				skladH_.setKol_vo(kol - kol_vo);
+				skladHService.update(skladH_);
+				skladH.setKol_vo(kol_vo);
+				kol_vo = (float) (kol_vo - kol);
 				
-				kol_vo = summa;
-		
+			} else if(kol < kol_vo){
+				skladH_.setKol_vo(0);
+				skladHService.update(skladH_);	
+				kol_vo = (float) (kol_vo - kol);
+				skladH.setKol_vo(kol);
 			}
+			
+			this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), kol_vo );
+			
+			skladH.setId(0);
+			skladH.setOperthiya("out");			
+			skladH.setData_oper(dateFormat.format( new Date() ));
+			skladH.setSklad(skladService.getById(sklad_id));
+			skladH.setLink(skladH_.getId());
+			skladH.setNaim(skladH_.getNaim());
+			skladH.setTtni(skladH_.getTtni());
+			skladH.setFio_zakazchika(fio_zakazchika);
+			skladH.setTab_nom_mol(tab_nom_mol);
+			skladHService.add(skladH);
+			double count = skladHService.Count(id_kladovshik, sklad_id);
+			Sklad sklad = skladService.getById(sklad_id);
+			sklad.setKolvo(count);
+			skladService.update(sklad);	
+			id = 0;
 		}
 		
+		if(id == 0){
+			for (SkladH skladH2 : skladH_out) {	
+				if (kol_vo > 0 ){
+					summa = (int) (kol_vo - skladH2.getKol_vo());
+					if(summa > 0 && skladH2.getKol_vo() != 0){
+						
+						SkladH skladH_ = skladHService.getById(skladH2.getId());						
+						skladH_.setKol_vo(0);
+						skladHService.update(skladH_);
+						
+						this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), skladH2.getKol_vo() );
+						skladH.setKol_vo(skladH2.getKol_vo());
+						double count = skladHService.Count(id_kladovshik, sklad_id);
+						Sklad sklad = skladService.getById(sklad_id);
+						sklad.setKolvo(count);
+						skladService.update(sklad);	
+						
+					}else if (summa <= 0 && skladH2.getKol_vo() != 0 ){
+						
+						SkladH skladH_ = skladHService.getById(skladH2.getId());
+						skladH_.setKol_vo(skladH2.getKol_vo() - kol_vo);
+						skladHService.update(skladH_);	
+						
+						this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), kol_vo );
+						skladH.setKol_vo(kol_vo);
+						double count = skladHService.Count(id_kladovshik, sklad_id);
+						Sklad sklad = skladService.getById(sklad_id);
+						sklad.setKolvo(count);
+						skladService.update(sklad);	
+					} 
+					
+					skladH.setId(0);
+					skladH.setOperthiya("out");
+					skladH.setData_oper(dateFormat.format( new Date() ));
+					skladH.setSklad(skladService.getById(sklad_id));
+					skladH.setLink(skladH2.getId());
+					skladH.setNaim(skladH2.getNaim());
+					skladH.setTtni(skladH2.getTtni());
+					skladH.setFio_zakazchika(fio_zakazchika);
+					skladH.setTab_nom_mol(tab_nom_mol);
+					skladHService.add(skladH);
+					
+					kol_vo = summa;
 			
+				}
+			}
+		}
 			
-		
-		
-		
 		
 		return "redirect:/skladH/skladsH/"+ sklad_id;
 	}
 
+	@RequestMapping(value = "/skladH_report")
+	public String report(Model model, HttpServletRequest request){
+		int id = (int) request.getSession().getAttribute("id_karta");
+		model.addAttribute("skladsH", skladHService.skladHById(id));
+		
+		int id_kladovshik = ((Kladovshik) request.getSession().getAttribute("kladovshik")).getId();
+		model.addAttribute("id_klad", id_kladovshik);
+
+		return "skladH/skladH_report";
+	}
 }
+
+

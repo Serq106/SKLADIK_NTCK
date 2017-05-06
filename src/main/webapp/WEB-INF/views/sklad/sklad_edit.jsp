@@ -12,7 +12,8 @@
 			<div id='header_items'>
 			    <div id="text-left">
 			    	<img alt="" src="${pageContext.request.contextPath}/resources/img/ntck.png">	
-			    </div>	    
+			    </div>
+			    <span><h2>Редактирование склада</h2></span>  	    
 			    <span>
 			    	<a href="${pageContext.servletContext.contextPath}/sklad/sklad_kladovschik/${id_klad}" class="botton">Главная</a>
 			    		<c:if test="${role.equals('ADMINISTRATOR')}">

@@ -15,7 +15,8 @@
 			<div id='header_items'>
 			    <div id="text-left">
 			    	<img alt="" src="${pageContext.request.contextPath}/resources/img/ntck.png">	
-			    </div>	    
+			    </div>	  
+			    <span><h2>Создания склада</h2></span>    
 			    <span>
 			    	<a href="${pageContext.servletContext.contextPath}/sklad/sklad_kladovschik/${id_klad}" class="botton">Главная</a>
 			    		<c:if test="${role.equals('ADMINISTRATOR')}">
@@ -46,7 +47,7 @@
 						<input type="hidden" name="sklad_key" value="0"/>
 					</p>	
 					<p>
-						<label for="isdel" class="label">единица измерения</label>
+						<label for="isdel" class="label">Единица измерения</label>
 						<input type="text" name="edin"/>
 					</p>			
 					<p>
