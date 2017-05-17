@@ -1,4 +1,4 @@
-insert  into `sklad`(`id_sklad`,`edin`,`naim`,`price`,`used`,`bismt`,`close_kadr`,`imports`,`in_bd`,`karta`,`kolvo`,`naim2`,`sap_kod`,`sklad_key`,`stelach`,`testing`,`tolling`,`yatheika`,`isdel`) values (9983,'шт','выключатель ВКП-1 ЦИКС.642241.009','39559',NULL,NULL,'0','YES','-','5857',2,'-',NULL,1002,'1',NULL,NULL,'1','0');
+insert  into `sklad`(`id_sklad`,`edin`,`naim`,`price`,`used`,`bismt`,`close_kadr`,`imports`,`in_bd`,`karta`,`kolvo`,`naim2`,`sap_kod`,`sklad_key`,`stelach`,`testing`,`tolling`,`yatheika`,`isdel`) values (9983,'шт','выключатель ВКП-1 ЦИКС.642241.009','39559',NULL,NULL,'0','YES','-','5857',8,'-',NULL,1002,'1',NULL,NULL,'1','0');
 insert  into `sklad`(`id_sklad`,`edin`,`naim`,`price`,`used`,`bismt`,`close_kadr`,`imports`,`in_bd`,`karta`,`kolvo`,`naim2`,`sap_kod`,`sklad_key`,`stelach`,`testing`,`tolling`,`yatheika`,`isdel`) values (9984,'шт','выключатель ВКП-2 ЦИКС.462241.014','22718',NULL,NULL,'0',NULL,'-','4380',3,'-',NULL,1002,'1',NULL,NULL,'1','0');
 insert  into `sklad`(`id_sklad`,`edin`,`naim`,`price`,`used`,`bismt`,`close_kadr`,`imports`,`in_bd`,`karta`,`kolvo`,`naim2`,`sap_kod`,`sklad_key`,`stelach`,`testing`,`tolling`,`yatheika`,`isdel`) values (9985,'шт','выключатель К593','74746',NULL,NULL,'0',NULL,'-','4325',1,'-',NULL,1002,'1',NULL,NULL,'1','0');
 insert  into `sklad`(`id_sklad`,`edin`,`naim`,`price`,`used`,`bismt`,`close_kadr`,`imports`,`in_bd`,`karta`,`kolvo`,`naim2`,`sap_kod`,`sklad_key`,`stelach`,`testing`,`tolling`,`yatheika`,`isdel`) values (9986,'шт','выключатель массы (аналог ВК 860Б)','74226',NULL,NULL,'0',NULL,'-','4262',0,'-',NULL,1002,'1',NULL,NULL,'1','0');
@@ -1203,8 +1203,6 @@ insert  into `sklad`(`id_sklad`,`edin`,`naim`,`price`,`used`,`bismt`,`close_kadr
 insert  into `sklad`(`id_sklad`,`edin`,`naim`,`price`,`used`,`bismt`,`close_kadr`,`imports`,`in_bd`,`karta`,`kolvo`,`naim2`,`sap_kod`,`sklad_key`,`stelach`,`testing`,`tolling`,`yatheika`,`isdel`) values (30205,'м','ремонтная лента ТД, 2х100мм',NULL,NULL,NULL,'0',NULL,'-','4560',0,'-',NULL,1004,'1',NULL,NULL,'1','0');
 insert  into `sklad`(`id_sklad`,`edin`,`naim`,`price`,`used`,`bismt`,`close_kadr`,`imports`,`in_bd`,`karta`,`kolvo`,`naim2`,`sap_kod`,`sklad_key`,`stelach`,`testing`,`tolling`,`yatheika`,`isdel`) values (31452,'шт','КВК0129250',NULL,NULL,NULL,'0',NULL,'+','41452',0,'+',NULL,3,'1',NULL,NULL,'105','0');
 
-
-
 insert  into `sklad_kladovshik`(`id`,`login`,`password`) values (1,'Rasputin','1234567');
 insert  into `sklad_kladovshik`(`id`,`login`,`password`) values (2,'Test','Test');
 insert  into `sklad_kladovshik`(`id`,`login`,`password`) values (3,'UAS','UAS');
@@ -1215,8 +1213,6 @@ insert  into `sklad_kladovshik`(`id`,`login`,`password`) values (7,'MAXAS','MAXA
 insert  into `sklad_kladovshik`(`id`,`login`,`password`) values (8,'SERGAE','SERGAE');
 insert  into `sklad_kladovshik`(`id`,`login`,`password`) values (9,'NATASHA','NATASHA');
 insert  into `sklad_kladovshik`(`id`,`login`,`password`) values (10,'GALAVM',NULL);
-
-
 
 insert  into `sklad_sk`(`sklad_id`,`kladovshik_id`) values (9983,1);
 insert  into `sklad_sk`(`sklad_id`,`kladovshik_id`) values (9984,1);
@@ -2423,10 +2419,11 @@ insert  into `sklad_sk`(`sklad_id`,`kladovshik_id`) values (30202,5);
 insert  into `sklad_sk`(`sklad_id`,`kladovshik_id`) values (30203,5);
 insert  into `sklad_sk`(`sklad_id`,`kladovshik_id`) values (30205,5);
 
-
 insert  into `sklad_user`(`id`,`boss`,`department_id`,`firstname`,`fullname`,`job`,`lastname`,`login`,`otchestvo`,`section_id`,`t_number`,`user_status`,`user_id`) values (1,1,1,'Распутин','Распутин С.С','1','Сергей','Rasputin','Сергеевич',1,1,'администратор',1);
 insert  into `sklad_user`(`id`,`boss`,`department_id`,`firstname`,`fullname`,`job`,`lastname`,`login`,`otchestvo`,`section_id`,`t_number`,`user_status`,`user_id`) values (4,1,2,'Хроменко','Хроменко М.Е.','1',NULL,NULL,NULL,1,1,'кладовщик',2);
 insert  into `sklad_user`(`id`,`boss`,`department_id`,`firstname`,`fullname`,`job`,`lastname`,`login`,`otchestvo`,`section_id`,`t_number`,`user_status`,`user_id`) values (5,1,2,'Далинчук','Далинчук О.С.','1',NULL,NULL,NULL,1,1,'кладовщик',3);
 insert  into `sklad_user`(`id`,`boss`,`department_id`,`firstname`,`fullname`,`job`,`lastname`,`login`,`otchestvo`,`section_id`,`t_number`,`user_status`,`user_id`) values (6,1,2,'Уткин','Уткин А.С.','1',NULL,NULL,NULL,1,1,'кладовщик',4);
 insert  into `sklad_user`(`id`,`boss`,`department_id`,`firstname`,`fullname`,`job`,`lastname`,`login`,`otchestvo`,`section_id`,`t_number`,`user_status`,`user_id`) values (7,1,3,'Ильющенко','Ильющенко А.А.','1',NULL,NULL,NULL,1,1,'кладовщик',5);
 
+insert  into `skladh`(`id`,`alt_edin`,`alt_kol_vo`,`data_oper`,`data_ttn`,`data_zayavki`,`fio_zakazchika`,`id_ord`,`id_zayavka`,`import_`,`is_del`,`isdel`,`kod_zatrat`,`kol_vo`,`kol_vo_old`,`link`,`master`,`naim`,`naim_doc`,`obrabotano`,`operthiya`,`postavhik`,`real_data_oper`,`rep_in`,`rep_status`,`sklad_in_key`,`sklad_out_key`,`tab_nom_mol`,`ttn`,`ttni`,`id_sklad`) values (81,'Кг',0,'2017-05-05','2017-05-05','0','Иван',0,0,'0','0','0','0',4,4,0,'0','выключатель ВКП-1 ЦИКС.642241.009','0','0','in','Дима','0','0',0,0,0,'0','0','Накладная',9983);
+insert  into `skladh`(`id`,`alt_edin`,`alt_kol_vo`,`data_oper`,`data_ttn`,`data_zayavki`,`fio_zakazchika`,`id_ord`,`id_zayavka`,`import_`,`is_del`,`isdel`,`kod_zatrat`,`kol_vo`,`kol_vo_old`,`link`,`master`,`naim`,`naim_doc`,`obrabotano`,`operthiya`,`postavhik`,`real_data_oper`,`rep_in`,`rep_status`,`sklad_in_key`,`sklad_out_key`,`tab_nom_mol`,`ttn`,`ttni`,`id_sklad`) values (82,'Кг',0,'2017-05-05','2017-05-05','0','Иван',0,0,'0','0','0','0',4,4,0,'0','выключатель ВКП-1 ЦИКС.642241.009','0','0','in','Дима','0','0',0,0,0,'0','0','Накладная',9983);
