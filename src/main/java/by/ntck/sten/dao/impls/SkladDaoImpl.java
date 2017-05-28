@@ -16,7 +16,7 @@ import by.ntck.sten.model.Sklad;
 @Repository
 public class SkladDaoImpl implements ISkladDao {
 	private static final Logger LOG = LoggerFactory.getLogger(SkladDaoImpl.class);
-	
+
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

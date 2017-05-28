@@ -66,11 +66,11 @@ public class Sklad {
 	@Column(name = "testing")
 	private String testing;
 
-	@Column(name = "imports")
-	private String imports;
+    @Column(name = "imports")
+    private String imports;
 
-	@Column(name = "close_kadr")
-	private String close_kadr;
+    @Column(name = "close_kadr")
+    private String close_kadr;
 
 	@Column(name = "sap_kod")
 	private String sap_kod;
@@ -87,7 +87,7 @@ public class Sklad {
 		return kladovshik;
 	}
 
-	public void setKladovshik(List<Kladovshik> kladovshik) {
+	public void setKladovshik(final List<Kladovshik> kladovshik) {
 		this.kladovshik = kladovshik;
 	}
 
@@ -95,7 +95,7 @@ public class Sklad {
 		return id_sklad;
 	}
 
-	public void setId_sklad(int id_sklad) {
+	public void setId_sklad(final int id_sklad) {
 		this.id_sklad = id_sklad;
 	}
 
@@ -103,7 +103,7 @@ public class Sklad {
 		return naim;
 	}
 
-	public void setNaim(String naim) {
+	public void setNaim(final String naim) {
 		this.naim = naim;
 	}
 
@@ -111,7 +111,7 @@ public class Sklad {
 		return edin;
 	}
 
-	public void setEdin(String edin) {
+	public void setEdin(final String edin) {
 		this.edin = edin;
 	}
 
@@ -119,7 +119,7 @@ public class Sklad {
 		return kolvo;
 	}
 
-	public void setKolvo(double kolvo) {
+	public void setKolvo(final double kolvo) {
 		this.kolvo = kolvo;
 	}
 
@@ -127,7 +127,7 @@ public class Sklad {
 		return karta;
 	}
 
-	public void setKarta(String karta) {
+	public void setKarta(final String karta) {
 		this.karta = karta;
 	}
 
@@ -135,7 +135,7 @@ public class Sklad {
 		return sklad_key;
 	}
 
-	public void setSklad_key(int sklad_key) {
+	public void setSklad_key(final int sklad_key) {
 		this.sklad_key = sklad_key;
 	}
 
@@ -143,7 +143,7 @@ public class Sklad {
 		return isdel;
 	}
 
-	public void setIsdel(String isdel) {
+	public void setIsdel(final String isdel) {
 		this.isdel = isdel;
 	}
 
@@ -151,7 +151,7 @@ public class Sklad {
 		return stelach;
 	}
 
-	public void setStelach(String stelach) {
+	public void setStelach(final String stelach) {
 		this.stelach = stelach;
 	}
 
@@ -159,7 +159,7 @@ public class Sklad {
 		return yatheika;
 	}
 
-	public void setYatheika(String yatheika) {
+	public void setYatheika(final String yatheika) {
 		this.yatheika = yatheika;
 	}
 
@@ -167,7 +167,7 @@ public class Sklad {
 		return naim2;
 	}
 
-	public void setNaim2(String naim2) {
+	public void setNaim2(final String naim2) {
 		this.naim2 = naim2;
 	}
 
@@ -175,7 +175,7 @@ public class Sklad {
 		return used;
 	}
 
-	public void setUsed(String used) {
+	public void setUsed(final String used) {
 		this.used = used;
 	}
 
@@ -183,7 +183,7 @@ public class Sklad {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(final String price) {
 		this.price = price;
 	}
 
@@ -191,7 +191,7 @@ public class Sklad {
 		return in_bd;
 	}
 
-	public void setIn_bd(String in_bd) {
+	public void setIn_bd(final String in_bd) {
 		this.in_bd = in_bd;
 	}
 
@@ -199,7 +199,7 @@ public class Sklad {
 		return tolling;
 	}
 
-	public void setTolling(String tolling) {
+	public void setTolling(final String tolling) {
 		this.tolling = tolling;
 	}
 
@@ -207,7 +207,7 @@ public class Sklad {
 		return testing;
 	}
 
-	public void setTesting(String testing) {
+	public void setTesting(final String testing) {
 		this.testing = testing;
 	}
 
@@ -215,7 +215,7 @@ public class Sklad {
 		return imports;
 	}
 
-	public void setImports(String imports) {
+	public void setImports(final String imports) {
 		this.imports = imports;
 	}
 
@@ -223,7 +223,7 @@ public class Sklad {
 		return close_kadr;
 	}
 
-	public void setClose_kadr(String close_kadr) {
+	public void setClose_kadr(final String close_kadr) {
 		this.close_kadr = close_kadr;
 	}
 
@@ -231,7 +231,7 @@ public class Sklad {
 		return sap_kod;
 	}
 
-	public void setSap_kod(String sap_kod) {
+	public void setSap_kod(final String sap_kod) {
 		this.sap_kod = sap_kod;
 	}
 
@@ -239,7 +239,7 @@ public class Sklad {
 		return bismt;
 	}
 
-	public void setBismt(String bismt) {
+	public void setBismt(final String bismt) {
 		this.bismt = bismt;
 	}
 
@@ -248,7 +248,7 @@ public class Sklad {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Sklad(int id_sklad, double kolvo) {
+	public Sklad(final int id_sklad, final double kolvo) {
 		super();
 		this.id_sklad = id_sklad;		
 		this.kolvo = kolvo;		

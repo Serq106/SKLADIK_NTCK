@@ -68,6 +68,7 @@ public class SkladHController {
 		model.addAttribute("view_edit", index);
 		model.addAttribute("skladsH", skladHService.skladHById(id));
 		request.getSession().setAttribute("id_karta", id);
+		model.addAttribute("id", id);
 		Sklad sklad = skladService.getById(id);
 		request.getSession().setAttribute("sklad", sklad);
 		int id_kladovshik = ((Kladovshik) request.getSession().getAttribute("kladovshik")).getId();
@@ -97,7 +98,7 @@ public class SkladHController {
 		return "skladH/skladH_out";
 	}
 	
-	public void history(int id_historyOperation, String Dates, int Id_row, String TableName,  String Operation,  int id_kladovshik, double kol_vo, double kol_vo_old){
+	public void history(int id_historyOperation, String Dates, int Id_row, String TableName,  String Operation,  int id_kladovshik, double kol_vo, double kol_vo_old, int id_sklad){
 		HistoryOperation historyOperation = new HistoryOperation();
 		historyOperation.setId_historyOperation(id_historyOperation);;
 		historyOperation.setDate(Dates);
@@ -106,6 +107,7 @@ public class SkladHController {
 		historyOperation.setTableName(TableName);		
 		historyOperation.setKol_vo(kol_vo);
 		historyOperation.setKol_vo_old(kol_vo_old);
+		historyOperation.setId_sklad(id_sklad);
 		historyOperation.setKladovshik(kladovshikService.getById(id_kladovshik));
 		this.historyOperationService.add(historyOperation);			
 	}
@@ -167,7 +169,7 @@ public class SkladHController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 		model.addAttribute("id_klad", id_kladovshik);
 		
-		this.history(0, dateFormat.format( new Date() ), skladH.getId(), "SkladH", operthiya, id_kladovshik, count, 0 );
+		this.history(0, dateFormat.format( new Date() ), skladH.getId(), "SkladH", operthiya, id_kladovshik, count, 0, sklad_id );
 		
 		return "redirect:/skladH/skladsH/"+ sklad_id;
 	}
@@ -214,7 +216,8 @@ public class SkladHController {
 				skladH.setKol_vo(kol);
 			}
 			
-			this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), kol_vo );
+			
+			this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), kol_vo, sklad_id );
 			
 			skladH.setId(0);
 			skladH.setOperthiya("out");			
@@ -243,20 +246,20 @@ public class SkladHController {
 						skladH_.setKol_vo(0);
 						skladHService.update(skladH_);
 						
-						this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), skladH2.getKol_vo() );
+						this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), skladH2.getKol_vo(), sklad_id );
 						skladH.setKol_vo(skladH2.getKol_vo());
 						double count = skladHService.Count(id_kladovshik, sklad_id);
 						Sklad sklad = skladService.getById(sklad_id);
 						sklad.setKolvo(count);
 						skladService.update(sklad);	
-						
+
 					}else if (summa <= 0 && skladH2.getKol_vo() != 0 ){
 						
 						SkladH skladH_ = skladHService.getById(skladH2.getId());
 						skladH_.setKol_vo(skladH2.getKol_vo() - kol_vo);
 						skladHService.update(skladH_);	
 						
-						this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), kol_vo );
+						this.history(0, dateFormat.format( new Date() ), skladH_.getId(), "SkladH", "out", id_kladovshik, skladH.getKol_vo(), kol_vo, sklad_id );
 						skladH.setKol_vo(kol_vo);
 						double count = skladHService.Count(id_kladovshik, sklad_id);
 						Sklad sklad = skladService.getById(sklad_id);

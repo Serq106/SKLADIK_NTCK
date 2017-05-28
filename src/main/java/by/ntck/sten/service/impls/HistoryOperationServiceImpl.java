@@ -44,4 +44,9 @@ public class HistoryOperationServiceImpl implements IHistoryOperationService {
 		return this.daoHistoryOperation.list();
 	}
 
+	@Override
+	public List<HistoryOperation> HistoryOperationById(int id) {
+		return this.daoHistoryOperation.HistoryOperationById(id);
+	}
+
 }

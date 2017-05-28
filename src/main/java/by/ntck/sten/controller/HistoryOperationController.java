@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,12 @@ public class HistoryOperationController {
 	@Qualifier(value = "historyOperationService")
 	public void setHistoryOperationService(IHistoryOperationService historyOperationService) {
 		this.historyOperationService = historyOperationService;
+	}
+	
+	@RequestMapping(value = "/historyOperation/{id}")
+	public String history(@PathVariable("id") int id ,Model model){
+		model.addAttribute("listHistory", this.historyOperationService.HistoryOperationById(id));
+		return "historyOperation/historyOperations";
 	}
 	
 	@RequestMapping(value = "/historyOperations", method = RequestMethod.GET)

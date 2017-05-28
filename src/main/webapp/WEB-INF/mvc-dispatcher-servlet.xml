@@ -102,6 +102,13 @@
 	<bean id="skladHService" class="by.ntck.sten.service.impls.SkladHServiceImpl">				
 		<property name="daoSkladH" ref="skladHDAO" />
 	</bean>
+	
+	<bean id="ajaxAutocompleteDao" class="by.ntck.sten.dao.impls.AjaxAutocompleteDaoImpl">
+		<property name="sessionFactory" ref="hibernate" />
+	</bean>
+	<bean id="ajaxAutocompleteService" class="by.ntck.sten.service.impls.AjaxAutocompleteServiceImpl">				
+		<property name="dao" ref="ajaxAutocompleteDao" />
+	</bean>
 
 	<!-- разрешаем использовать аннотации -->
 	<mvc:annotation-driven />

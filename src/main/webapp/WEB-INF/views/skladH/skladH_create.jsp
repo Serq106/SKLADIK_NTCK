@@ -4,8 +4,39 @@
 
 <html>
 <head>
+
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="autocompleter.js"></script>
+
+
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/CSS/style.css" />
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(function() {
+			$("#ttni").autocomplete({
+				source : function(request, response) {
+					$.ajax({
+						url : "${pageContext.request.contextPath}/ControllerAutocompleteAJAX/doc-ajax-autocomplete",
+						type : "GET",
+						data : {
+							term : request.term
+						},
+						dataType : "json",
+						success : function(data) {
+							response(data);
+						}
+					});
+				}
+			});
+		});
+	});
+</script>
+
+
+
 </head>
 <body>
 	<div id="header">
@@ -69,7 +100,8 @@
 				</p-->
 				<p>
 					<login for="ttni" class="label">Вид документа</login>
-					<input type="text" name="ttni" />
+					<input type="text" id="ttni" name="ttni" />
+					
 				</p>
 				<p>
 					<login for="fio_zakazchika" class="label">ФИО заказчика</login>

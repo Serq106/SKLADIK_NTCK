@@ -32,6 +32,8 @@
     </tr>
     	<c:forEach items="${skladsH}" var="list">
     		<tr>
+
+    			
 			    <td>${id_klad}</td>
 			    <td>${list.link}</td>
 			    <c:if test="${list.operthiya == 'out'}">
@@ -49,6 +51,7 @@
 			    <td>${list.ttni}</td>
 			    <td>${list.fio_zakazchika}</td>
 			</tr>
+		
 	     </c:forEach> 
     </table>    
 	

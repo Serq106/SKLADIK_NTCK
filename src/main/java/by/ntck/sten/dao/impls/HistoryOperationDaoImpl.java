@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import by.ntck.sten.dao.IHistoryOperationDao;
 import by.ntck.sten.model.HistoryOperation;
+import by.ntck.sten.model.SkladH;
 
 @Repository
 public class HistoryOperationDaoImpl implements IHistoryOperationDao {
@@ -65,4 +66,15 @@ public class HistoryOperationDaoImpl implements IHistoryOperationDao {
 		}
 		return historyOperationList;
 	}
+
+	@Override
+	public List<HistoryOperation> HistoryOperationById(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<HistoryOperation> HistoryOperationList = (List<HistoryOperation>) session.createQuery(
+				"from HistoryOperation as historyOperation where historyOperation.id_sklad = '" + id + "'").list();
+		
+		LOG.info("skladHById successfully loaded. skladHById detalis: ");
+		return HistoryOperationList;
+	}
+
 }

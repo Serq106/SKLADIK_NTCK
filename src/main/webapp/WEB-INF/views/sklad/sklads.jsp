@@ -55,14 +55,14 @@
 		<div id='header_items'>	
 			<span> 
 				<a href="${pageContext.servletContext.contextPath}/sklad/view_edit" class="botton">Просмотр складов</a>
-				<a href="/weew/sklad/sklad_create" class="botton">Создать карточку</a>
+				<a href="${pageContext.request.contextPath}/sklad/sklad_create" class="botton">Создать склад</a>
 			</span>
 		</div>
 		</br>
 		<form class="subform" action="${pageContext.servletContext.contextPath}/sklad/search/${id_klad}" method="get">
 				<div class="form-center" style="border: 2px solid black;">
 					
-						<label for="naim" >Наиминование</label>
+						<label for="naim" >Наименование</label>
 						<input type="text" name="naim" style="width: 200px;"/>					
 						<button type="submit" class="botton" >Поиск</button>
 
