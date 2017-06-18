@@ -15,45 +15,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 import by.ntck.sten.model.Kladovshik;
 import by.ntck.sten.service.IKladovshikService;
 import static by.ntck.sten.constant.Constants.*;
+
 @Controller
 @RequestMapping("kladovshik")
 public class KladovshikController {
-	public static  final Logger LOG = Logger.getLogger(KladovshikController.class);
+    public static final Logger LOG = Logger.getLogger(KladovshikController.class);
 
-	private IKladovshikService kladovshikService;
-	
-	public int her = 1;
-	
-	@Autowired(required = true)
-	@Qualifier(value = "kladovshikService")
-	public void setKladovshikService(IKladovshikService kladovshikService) {
-		this.kladovshikService = kladovshikService;
-	}
+    private IKladovshikService kladovshikService;
 
-	@RequestMapping(value = "/login" )
-	public String login(Model model, HttpServletRequest request) {
-		model.addAttribute("kladovshik", new Kladovshik());
-		request.getSession().invalidate();
-		
-		return "/login";
-	}
+    public int her = 1;
 
-	@RequestMapping(value = "/auth", method = RequestMethod.POST)
-	public String login_auth(@RequestParam("login") String login, @RequestParam("password") String password,
-			 Model model, HttpServletRequest request) {		
-		model.addAttribute("kladovshik", new Kladovshik());
-		Kladovshik kladovshik = kladovshikService.login(login, password);
+    @Autowired(required = true)
+    @Qualifier(value = "kladovshikService")
+    public void setKladovshikService(final IKladovshikService kladovshikService) {
+        this.kladovshikService = kladovshikService;
+    }
 
-		model.addAttribute("kladovshik", (kladovshik.equals(EMPTY_KLADOVSHIK))?EMPTY_KLADOVSHIK:kladovshik);
-		request.getSession().setAttribute("kladovshik",kladovshik);
-		if(kladovshik.getId()!= 0 ){
-			her = 1;
-			return "redirect:/sklad/sklad_kladovschik/"+ kladovshik.getId();	
-		} else {
-			her = -1;
-			return "redirect:/kladovshik/login";
-		}
-				
-		
-	}
+    @RequestMapping(value = "/login")
+    public String login(final Model model, final HttpServletRequest request) {
+        model.addAttribute("kladovshik", new Kladovshik());
+        request.getSession().invalidate();
+
+        return "/login";
+    }
+
+    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+    public String login_auth(@RequestParam("login") final String login, @RequestParam("password") final String password,
+            final Model model, final HttpServletRequest request) {
+        model.addAttribute("kladovshik", new Kladovshik());
+        Kladovshik kladovshik = kladovshikService.login(login, password);
+
+        model.addAttribute("kladovshik", (kladovshik.equals(EMPTY_KLADOVSHIK)) ? EMPTY_KLADOVSHIK : kladovshik);
+        request.getSession().setAttribute("kladovshik", kladovshik);
+        if (kladovshik.getId() != 0) {
+            her = 1;
+            return "redirect:/sklad/sklad_kladovschik/" + kladovshik.getId();
+        } else {
+            her = -1;
+            return "redirect:/kladovshik/login";
+        }
+
+    }
 }

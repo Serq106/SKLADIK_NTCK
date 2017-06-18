@@ -14,67 +14,67 @@ import by.ntck.sten.model.SkladH;
 
 @Repository
 public class HistoryOperationDaoImpl implements IHistoryOperationDao {
-	private static final Logger LOG = LoggerFactory.getLogger(HistoryOperationDaoImpl.class);
-	
-	private SessionFactory sessionFactory;
+    private static final Logger LOG = LoggerFactory.getLogger(HistoryOperationDaoImpl.class);
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+    private SessionFactory sessionFactory;
 
-	@Override
-	public void add(HistoryOperation historyOperation) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(historyOperation);
-		LOG.info("historyOperation successfully saved. historyOperation details: " + historyOperation);		
-	}
+    public void setSessionFactory(final SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
-	@Override
-	public void update(HistoryOperation historyOperation) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(historyOperation);
-	}
+    @Override
+    public void add(final HistoryOperation historyOperation) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.persist(historyOperation);
+        LOG.info("historyOperation successfully saved. historyOperation details: " + historyOperation);
+    }
 
-	@Override
-	public void remove(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		HistoryOperation historyOperation = (HistoryOperation) session.load(HistoryOperation.class, new Integer(id));
-		
-		if (historyOperation != null){
-			session.delete(historyOperation);
-		}
-		LOG.info("Sklad successfully removed. Sklad details: " + historyOperation);
-	
-	}
+    @Override
+    public void update(final HistoryOperation historyOperation) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.update(historyOperation);
+    }
 
-	@Override
-	public HistoryOperation getById(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		HistoryOperation historyOperation = (HistoryOperation) session.load(HistoryOperation.class, new Integer(id));
+    @Override
+    public void remove(final int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        HistoryOperation historyOperation = (HistoryOperation) session.load(HistoryOperation.class, new Integer(id));
 
-		LOG.info("Sklad successfully loaded. Sklad detalis: " + historyOperation);
-		return historyOperation;
-	}
+        if (historyOperation != null) {
+            session.delete(historyOperation);
+        }
+        LOG.info("Sklad successfully removed. Sklad details: " + historyOperation);
 
-	@Override
-	public List<HistoryOperation> list() {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<HistoryOperation> historyOperationList = (List<HistoryOperation>) session.createQuery("from HistoryOperation").list();
-		
-		for(HistoryOperation historyOperation : historyOperationList ){
-			LOG.info("historyOperation list: " + historyOperation);
-		}
-		return historyOperationList;
-	}
+    }
 
-	@Override
-	public List<HistoryOperation> HistoryOperationById(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<HistoryOperation> HistoryOperationList = (List<HistoryOperation>) session.createQuery(
-				"from HistoryOperation as historyOperation where historyOperation.id_sklad = '" + id + "'").list();
-		
-		LOG.info("skladHById successfully loaded. skladHById detalis: ");
-		return HistoryOperationList;
-	}
+    @Override
+    public HistoryOperation getById(final int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        HistoryOperation historyOperation = (HistoryOperation) session.load(HistoryOperation.class, new Integer(id));
+
+        LOG.info("Sklad successfully loaded. Sklad detalis: " + historyOperation);
+        return historyOperation;
+    }
+
+    @Override
+    public List<HistoryOperation> list() {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<HistoryOperation> historyOperationList = (List<HistoryOperation>) session.createQuery("from HistoryOperation").list();
+
+        for (HistoryOperation historyOperation : historyOperationList) {
+            LOG.info("historyOperation list: " + historyOperation);
+        }
+        return historyOperationList;
+    }
+
+    @Override
+    public List<HistoryOperation> HistoryOperationById(final int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<HistoryOperation> HistoryOperationList = (List<HistoryOperation>) session.createQuery(
+                "from HistoryOperation as historyOperation where historyOperation.id_sklad = '" + id + "'").list();
+
+        LOG.info("skladHById successfully loaded. skladHById detalis: ");
+        return HistoryOperationList;
+    }
 
 }

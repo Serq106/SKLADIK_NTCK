@@ -1,10 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-
-
-
 <!DOCTYPE html>
 
 <html>
@@ -51,15 +47,15 @@
 	        <tr>
 	        	<th width="80">Ид</th>
 	            <th width="80">Приход</th>
-	            <th width="120">Исходное количество</th>
-	            <th width="120">Остаток</th>
+	            <th width="60">Исходное количество</th>
+	            <th width="60">Остаток</th>
 	            <th width="120">Дата операции</th>
 	            <th width="60">Поставщик</th>
 	            <th width="80">Дата документа</th>
 	            <th width="120">Название</th>
 	            <th width="120">Вид документа</th>
 	            <th width="60">ФИО заказчика</th>
-	            <th width="120">Единица измерения</th>  
+	            <th width="60">Единица измерения</th>  
 	            <c:if test="${role.equals('ADMINISTRATOR')}">
 					<th width="60">Удалить</th>
 				</c:if>
@@ -86,8 +82,8 @@
 	            </c:if>
 	        </c:forEach>
 	    </table>  
-		</br>
-   		<span><h3>Карточка расхрда</h3></span>
+		<br></br>
+   		<span><h3>Карточка расхода</h3></span>
 		<table class="tg">
 		        <tr>
 		        	<th>Ид</th>

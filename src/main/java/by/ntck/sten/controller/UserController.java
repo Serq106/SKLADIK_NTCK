@@ -16,18 +16,18 @@ import by.ntck.sten.service.IService;
 @Controller
 @RequestMapping("user")
 public class UserController {
-	private IService<User> userService;
+    private IService<User> userService;   
 
-	@Autowired(required = true)
-	@Qualifier(value = "userService")
-	public void setBookService(IService<User> userService) {
-		this.userService = userService;
-	}
+    @Autowired(required = true)
+    @Qualifier(value = "userService")
+    public void setBookService(final IService<User> userService) {
+        this.userService = userService;
+    }
 
-	@RequestMapping(value = "/user_data/{id}", method = RequestMethod.POST)
-	public String userData(Model model, @PathVariable("id") int id, HttpServletRequest request) {
-		model.addAttribute("user", new User());
-		model.addAttribute("findUser", userService.getById(id));
-		return "user/user_data";
-	}	
+    @RequestMapping(value = "/user_data/{id}", method = RequestMethod.POST)
+    public String userData(final Model model, @PathVariable("id") final int id, final HttpServletRequest request) {
+        model.addAttribute("user", new User());
+        model.addAttribute("findUser", userService.getById(id));
+        return "user/user_data";
+    }
 }

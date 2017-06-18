@@ -17,19 +17,19 @@ public class SkladHDaoImpl implements ISkladHDao {
 
     private SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public void setSessionFactory(final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void add(SkladH skladH) {
+    public void add(final SkladH skladH) {
         Session session = this.sessionFactory.getCurrentSession();
         session.persist(skladH);
         LOG.info("skladH successfully saved. skladH details: " + skladH);
     }
 
     @Override
-    public void update(SkladH skladH) {
+    public void update(final SkladH skladH) {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(skladH);
         LOG.info("skladH successfully update. skladH details: " + skladH);
@@ -37,7 +37,7 @@ public class SkladHDaoImpl implements ISkladHDao {
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(final int id) {
         Session session = this.sessionFactory.getCurrentSession();
         SkladH skladH = (SkladH) session.load(SkladH.class, new Integer(id));
 
@@ -49,7 +49,7 @@ public class SkladHDaoImpl implements ISkladHDao {
     }
 
     @Override
-    public SkladH getById(int id) {
+    public SkladH getById(final int id) {
         Session session = this.sessionFactory.getCurrentSession();
         SkladH skladH = (SkladH) session.load(SkladH.class, new Integer(id));
         LOG.info("SkladH successfully loaded. SkladH detalis: " + skladH);
@@ -69,7 +69,7 @@ public class SkladHDaoImpl implements ISkladHDao {
     }
 
     @Override
-    public List<SkladH> skladHById(int sklad_id) {
+    public List<SkladH> skladHById(final int sklad_id) {
         Session session = this.sessionFactory.getCurrentSession();
         List<SkladH> skladHList = (List<SkladH>) session.createQuery(
                 "from SkladH as skladH where skladH.sklad = '" + sklad_id + "'").list();
@@ -80,7 +80,7 @@ public class SkladHDaoImpl implements ISkladHDao {
     }
 
     @Override
-    public SkladH Kol(int id) {
+    public SkladH Kol(final int id) {
         Session session = this.sessionFactory.getCurrentSession();
         SkladH sklad = (SkladH) session.createQuery("from SkladH as skladH where skladH.id='" + id + "'").getSingleResult();
         return sklad;
@@ -88,19 +88,19 @@ public class SkladHDaoImpl implements ISkladHDao {
     }
 
     @Override
-    public Double Count(int id_klad, int id_sklad) {
+    public Double Count(final int id_klad, final int id_sklad) {
         Session session = this.sessionFactory.getCurrentSession();
         Double count = (Double) session.createNativeQuery(
-                "SELECT sum(kol_vo) FROM sklad s INNER JOIN SkladH sh ON (sh.id_sklad = s.id_sklad) " +
-                        " INNER JOIN sklad_sk sk ON (sk.sklad_id =s.id_sklad)" +
-                        " INNER JOIN sklad_kladovshik k ON (k.id = sk.kladovshik_id)" +
-                        " WHERE sh.operthiya='in' AND k.id='" + id_klad + "' AND sh.id_sklad = '" + id_sklad + "'")
+                "SELECT sum(kol_vo) FROM sklad s INNER JOIN SkladH sh ON (sh.id_sklad = s.id_sklad) "
+                        + " INNER JOIN sklad_sk sk ON (sk.sklad_id =s.id_sklad)"
+                        + " INNER JOIN sklad_kladovshik k ON (k.id = sk.kladovshik_id)"
+                        + " WHERE sh.operthiya='in' AND k.id='" + id_klad + "' AND sh.id_sklad = '" + id_sklad + "'")
                 .getSingleResult();
         return count;
     }
 
     @Override
-    public List<SkladH> Count_uzdel(int id_klad, int id_sklad) {
+    public List<SkladH> Count_uzdel(final int id_klad, final int id_sklad) {
         Session session = this.sessionFactory.getCurrentSession();
 
         List<SkladH> skladHList = (List<SkladH>) session.createQuery(

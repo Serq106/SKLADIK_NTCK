@@ -1,14 +1,35 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="from" uri="http://www.springframework.org/tags/form"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ page session="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
 	<head>
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(function() {
+					$("#naim").autocomplete({
+						source : function(request, response) {
+							$.ajax({
+								url : "${pageContext.request.contextPath}/ControllerAutocompleteAJAX/doc-ajax-autocomplete-naimenovanie",
+								type : "GET",
+								data : {
+									term : request.term
+								},
+								dataType : "json",
+								success : function(data) {
+									response(data);
+								}
+							});
+						}
+					});
+				});
+			});
+		</script>
+		
 		<script>
 			function del(id){
 				var path= "${pageContext.servletContext.contextPath}/sklad/remove/" + id; 
@@ -58,18 +79,18 @@
 				<a href="${pageContext.request.contextPath}/sklad/sklad_create" class="botton">Создать склад</a>
 			</span>
 		</div>
-		</br>
+		<br></br>
 		<form class="subform" action="${pageContext.servletContext.contextPath}/sklad/search/${id_klad}" method="get">
 				<div class="form-center" style="border: 2px solid black;">
 					
 						<label for="naim" >Наименование</label>
-						<input type="text" name="naim" style="width: 200px;"/>					
-						<button type="submit" class="botton" >Поиск</button>
+						<input type="text" id="naim" name="naim" style="width: 200px;"/>				
+						<button type="submit" id="botton" class="botton" >Поиск</button>
 
 				</div>
 		</form>	
 		
-		</br>
+		<br></br>
 
 		<table class="tg">
 			<tr>

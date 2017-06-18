@@ -1,5 +1,12 @@
 package by.ntck.sten.dao.impls;
 
+import static by.ntck.sten.constant.Constants.ADMINISTRATOR;
+import static by.ntck.sten.constant.Constants.EMPTY_KLADOVSHIK;
+import static by.ntck.sten.constant.Constants.EMPTY_ROLE;
+import static by.ntck.sten.constant.Constants.KLADOVSHIK;
+import static by.ntck.sten.constant.Constants.ROLE_ADMINISTRATOR;
+import static by.ntck.sten.constant.Constants.ROLE_KLADOVSHIK;
+
 import java.util.List;
 
 import org.hibernate.Session;
@@ -14,34 +21,32 @@ import by.ntck.sten.model.Kladovshik;
 import by.ntck.sten.model.Sklad;
 import by.ntck.sten.model.User;
 
-import static by.ntck.sten.constant.Constants.*;
-
 @Repository
 public class KladovshikDaoImpl implements IKladovshikDao {
     private static final Logger LOG = LoggerFactory.getLogger(KladovshikDaoImpl.class);
 
     private SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public void setSessionFactory(final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void add(Kladovshik kladovshik) {
+    public void add(final Kladovshik kladovshik) {
         Session session = this.sessionFactory.getCurrentSession();
         session.persist(kladovshik);
         LOG.info("Book successfully saved. Book details: " + kladovshik);
     }
 
     @Override
-    public void update(Kladovshik kladovshik) {
+    public void update(final Kladovshik kladovshik) {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(kladovshik);
         LOG.info("Book successfully update. Book details: " + kladovshik);
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(final int id) {
         Session session = this.sessionFactory.getCurrentSession();
         Kladovshik kladovshik = (Kladovshik) session.load(Kladovshik.class, new Integer(id));
 
@@ -52,7 +57,7 @@ public class KladovshikDaoImpl implements IKladovshikDao {
     }
 
     @Override
-    public Kladovshik getById(int id) {
+    public Kladovshik getById(final int id) {
         Session session = this.sessionFactory.getCurrentSession();
         Kladovshik kladovshik = (Kladovshik) session.load(Kladovshik.class, new Integer(id));
         if (kladovshik == null) {
@@ -73,7 +78,7 @@ public class KladovshikDaoImpl implements IKladovshikDao {
     }
 
     @Override
-    public Kladovshik login(String login, String password) {
+    public Kladovshik login(final String login, final String password) {
         Session session = this.sessionFactory.getCurrentSession();
 
         List<Kladovshik> kladovshiks = (List<Kladovshik>) session
@@ -90,7 +95,7 @@ public class KladovshikDaoImpl implements IKladovshikDao {
     }
 
     @Override
-    public List<Sklad> SkladBykladovshik(int id_kladovshok) {
+    public List<Sklad> skladByKladovshik(final int id_kladovshok) {
         Session session = this.sessionFactory.getCurrentSession();
 
         Query q = session.createQuery("select s from Sklad s INNER JOIN s.kladovshik kladovshik"
@@ -103,7 +108,7 @@ public class KladovshikDaoImpl implements IKladovshikDao {
     }
 
     @Override
-    public String getRole(int id) {
+    public String getRole(final int id) {
         Session session = this.sessionFactory.getCurrentSession();
 
         Query q = session.createQuery("select u " + " from User u INNER JOIN u.kladovshik kladovshik"
@@ -127,19 +132,17 @@ public class KladovshikDaoImpl implements IKladovshikDao {
 
     }
 
-    
-    
     @Override
-    public List<Sklad> SkladBykladovshikSearch(int id_kladovshok, int index, String naim) {
+    public List<Sklad> skladByKladovshikSearch(final int id_kladovshok, final int index, final String naim) {
         Session session = this.sessionFactory.getCurrentSession();
         List<Sklad> SkladList;
         if (index != 0) {
             Query q = session.createQuery("select s from Sklad s INNER JOIN s.kladovshik kladovshik"
-                    + " where kladovshik.id = '" + id_kladovshok + "' and s.isdel = 0 and s.naim like '%" + naim + "%'");
+                    + "where kladovshik.id = '" + id_kladovshok + "' and s.isdel = 0 and s.naim like '%" + naim + "%'");
             SkladList = q.list(); // 0 - склад не удален 1 - склад удален
         } else {
             Query q = session.createQuery("select s from Sklad s INNER JOIN s.kladovshik kladovshik"
-                    + " where  s.isdel = 0 and s.naim like '" + naim + "%'");
+                    + " where  s.isdel = 0 and s.naim like '%" + naim + "%'");
             SkladList = q.list(); // 0 - склад не удален 1 - склад удален
         }
 

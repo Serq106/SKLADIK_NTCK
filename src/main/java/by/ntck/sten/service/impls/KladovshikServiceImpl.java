@@ -12,57 +12,56 @@ import by.ntck.sten.service.IKladovshikService;
 
 @Service
 @Transactional
-public class KladovshikServiceImpl implements IKladovshikService{
-	private IKladovshikDao dao;
+public class KladovshikServiceImpl implements IKladovshikService {
+    private IKladovshikDao dao;
 
-	public void setDao(IKladovshikDao dao) {
-		this.dao = dao;
-	}
-		
-	@Override
-	public void add(Kladovshik kladovshik) {
-		this.dao.add(kladovshik);		
-	}
+    public void setDao(final IKladovshikDao dao) {
+        this.dao = dao;
+    }
 
-	@Override
-	public void update(Kladovshik kladovshik) {
-		this.dao.update(kladovshik);
-	}
+    @Override
+    public void add(final Kladovshik kladovshik) {
+        this.dao.add(kladovshik);
+    }
 
-	@Override
-	public void remove(int id) {
-		 this.dao.remove(id);
-	}
+    @Override
+    public void update(final Kladovshik kladovshik) {
+        this.dao.update(kladovshik);
+    }
 
-	@Override
-	public Kladovshik getById(int id) {
-		return this.dao.getById(id);
-	}
+    @Override
+    public void remove(final int id) {
+        this.dao.remove(id);
+    }
 
-	@Override
-	public List<Kladovshik> list() {
-		return this.dao.list();
-	}
-	
-	@Override
-	public Kladovshik login(String login, String password) {
-		return this.dao.login(login, password);
-	}
+    @Override
+    public Kladovshik getById(final int id) {
+        return this.dao.getById(id);
+    }
 
-	@Override
-	public List<Sklad> SkladBykladovshik(int id_kladovshok) {
-		return this.dao.SkladBykladovshik(id_kladovshok);
-	}
+    @Override
+    public List<Kladovshik> list() {
+        return this.dao.list();
+    }
 
-	@Override
-	public String getRole(int id) {
-		return this.dao.getRole(id);
-	}
+    @Override
+    public Kladovshik login(final String login, final String password) {
+        return this.dao.login(login, password);
+    }
 
-	@Override
-	public List<Sklad> SkladBykladovshikSearch(int id_kladovshok, int index, String naim) {
-		return this.dao.SkladBykladovshikSearch(id_kladovshok, index, naim);
-	}
+    @Override
+    public List<Sklad> SkladBykladovshik(final int id_kladovshok) {
+        return this.dao.skladByKladovshik(id_kladovshok);
+    }
+
+    @Override
+    public String getRole(final int id) {
+        return this.dao.getRole(id);
+    }
+
+    @Override
+    public List<Sklad> SkladBykladovshikSearch(final int id_kladovshok, final int index, final String naim) {
+        return this.dao.skladByKladovshikSearch(id_kladovshok, index, naim);
+    }
 
 }
-

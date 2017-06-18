@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 
 <html>
 	<head>    
@@ -16,7 +16,7 @@
 			    <div id="text-left">
 			    	<img alt="" src="${pageContext.request.contextPath}/resources/img/ntck.png">	
 			    </div>	  
-			    <span><h2>Создания склада</h2></span>    
+			    <span><h2>Создание склада</h2></span>    
 			    <span>
 			    	<a href="${pageContext.servletContext.contextPath}/sklad/sklad_kladovschik/${id_klad}" class="botton">Главная</a>
 			    		<c:if test="${role.equals('ADMINISTRATOR')}">
@@ -118,7 +118,7 @@
 							</select>
 					</p-->					
 					<div class="button-create-center">
-						<button type="submit" class="botton" >Создать карточку</button>
+						<button type="submit" class="botton" >Создать склад</button>
 					</div>
 				</div>
 			</form>	

@@ -7,22 +7,21 @@ import by.ntck.sten.service.IHistoryOperationService;
 import by.ntck.sten.service.IKladovshikService;
 
 public class History {
-	
-	private IHistoryOperationService historyOperationService;
-	
-	private IKladovshikService kladovshikService;
-	
-	@Autowired(required = true)
-	@Qualifier(value = "historyOperationService")
-	public void setHistoryOperationService(IHistoryOperationService historyOperationService) {
-		this.historyOperationService = historyOperationService;
-	}
-	
-	@Autowired(required = true)
-	@Qualifier(value = "kladovshikService")
-	public void setKladovshikService(IKladovshikService kladovshikService) {
-		this.kladovshikService = kladovshikService;
-	}
 
+    private IHistoryOperationService historyOperationService;
+
+    private IKladovshikService kladovshikService;
+
+    @Autowired(required = true)
+    @Qualifier(value = "historyOperationService")
+    public void setHistoryOperationService(final IHistoryOperationService historyOperationService) {
+        this.historyOperationService = historyOperationService;
+    }
+
+    @Autowired(required = true)
+    @Qualifier(value = "kladovshikService")
+    public void setKladovshikService(final IKladovshikService kladovshikService) {
+        this.kladovshikService = kladovshikService;
+    }
 
 }

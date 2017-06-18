@@ -13,59 +13,59 @@ import by.ntck.sten.model.User;
 
 @Repository
 public class UserDaoImpl implements IUserDao {
-	private static final Logger LOG = LoggerFactory.getLogger(UserDaoImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserDaoImpl.class);
 
-	private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+    public void setSessionFactory(final SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
-	@Override
-	public void add(User user) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(user);
-		LOG.info("Book successfully saved. Book details: " + user);
+    @Override
+    public void add(final User user) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.persist(user);
+        LOG.info("Book successfully saved. Book details: " + user);
 
-	}
+    }
 
-	@Override
-	public void update(User user) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(user);
-		LOG.info("Book successfully update. Book details: " + user);
+    @Override
+    public void update(final User user) {
+        Session session = this.sessionFactory.getCurrentSession();
+        session.update(user);
+        LOG.info("Book successfully update. Book details: " + user);
 
-	}
+    }
 
-	@Override
-	public void remove(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		User user = (User) session.load(User.class, new Integer(id));
+    @Override
+    public void remove(final int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        User user = (User) session.load(User.class, new Integer(id));
 
-		if (user != null) {
-			session.delete(user);
-		}
-		LOG.info("Book successfully removed. Book details: " + user);
+        if (user != null) {
+            session.delete(user);
+        }
+        LOG.info("Book successfully removed. Book details: " + user);
 
-	}
+    }
 
-	@Override
-	public User getById(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		User user = (User) session.load(User.class, new Integer(id));
+    @Override
+    public User getById(final int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        User user = (User) session.load(User.class, new Integer(id));
 
-		LOG.info("Book successfully loaded. Book detalis: " + user);
-		return user;
-	}
+        LOG.info("Book successfully loaded. Book detalis: " + user);
+        return user;
+    }
 
-	@Override
-	public List<User> list() {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<User> userList = (List<User>) session.createQuery("from User").list();
+    @Override
+    public List<User> list() {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<User> userList = (List<User>) session.createQuery("from User").list();
 
-		for (User user : userList) {
-			LOG.info("Book list: " + user);
-		} 
-		return userList;
-	}
+        for (User user : userList) {
+            LOG.info("Book list: " + user);
+        }
+        return userList;
+    }
 }

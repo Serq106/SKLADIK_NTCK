@@ -67,8 +67,8 @@ public class SkladController {
         this.skladHService = skladHService;
     }
 
-    public void history(final int idHistoryOperation, final String dates, final int idRow, final String tableName, final String operation,
-            final int idKladovshik) {
+    public void history(final int idHistoryOperation, final String dates, final int idRow, final String tableName,
+            final String operation, final int idKladovshik) {
         HistoryOperation historyOperation = new HistoryOperation();
         historyOperation.setId_historyOperation(idHistoryOperation);
         historyOperation.setDate(dates);
@@ -141,8 +141,8 @@ public class SkladController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String edit(@RequestParam("id_sklad") final int id_sklad, @RequestParam("edin") final String edin,
-            /* @RequestParam("kolvo") float kolvo, */ @RequestParam("naim") final String naim, /* @RequestParam("price") String price, */
-            @RequestParam("used") final String used, final Model model, final HttpServletRequest request) {
+            @RequestParam("naim") final String naim, @RequestParam("used") final String used,
+            final Model model, final HttpServletRequest request) {
 
         int id_kladovshik = ((Kladovshik) request.getSession().getAttribute(ATTRIBUTE_KLADOVSHIK)).getId();
         Sklad sklad = skladService.getById(id_sklad);
@@ -166,7 +166,8 @@ public class SkladController {
     }
 
     @RequestMapping("/remove/{id_sklad}")
-    public String remove(@PathVariable("id_sklad") final int id_sklad, final HttpServletRequest request, final Model model) {
+    public String remove(@PathVariable("id_sklad") final int id_sklad, final HttpServletRequest request,
+            final Model model) {
 
         Sklad sklad = skladService.getById(id_sklad);
         sklad.setIsdel("1");
@@ -183,7 +184,8 @@ public class SkladController {
     }
 
     @RequestMapping(value = "/sklad_kladovschik/{id}", method = RequestMethod.GET)
-    public String sklad_kladovschik(@PathVariable("id") final int id, final Model model, final HttpServletRequest request) {
+    public String sklad_kladovschik(@PathVariable("id") final int id, final Model model,
+            final HttpServletRequest request) {
 
         Kladovshik kladocshik = this.kladovshikService.getById(id);
         model.addAttribute("listKladovschikSklad", this.kladovshikService.SkladBykladovshik(kladocshik.getId()));
