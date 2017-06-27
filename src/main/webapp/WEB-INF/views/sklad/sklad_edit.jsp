@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/CSS/style.css"/>
-	    <title>Books Page</title>    
+	    <title>Редактирование склада</title>    
 	</head>
 	<body>	
 		<div id="header">
@@ -35,7 +35,7 @@
 						<input type="text" name="edin" value="${findSklad.edin }"/>
 					</p>
 					<p>
-						<label for="used" class="label">Признак б/y</label>
+						<label for="used" class="label">Сап-код</label>
 						 <input type="text" name="used" value="${findSklad.used }"/>
 					</p>	
 					<input type="hidden" name="id_sklad" value="${findSklad.id_sklad }" />	

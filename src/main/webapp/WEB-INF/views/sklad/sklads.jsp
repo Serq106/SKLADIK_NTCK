@@ -5,9 +5,13 @@
 
 <html>
 	<head>
-		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>    <!-- cdn - в твоем случае = ЗЛО -->
+		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script><!-- cdn - в твоем случае = ЗЛО -->
+		
+		
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/jquery.tablesorter.min.js"></script> 
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/script.js"></script>
+		
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$(function() {
@@ -29,12 +33,13 @@
 				});
 			});
 		</script>
-		
+
 		<script>
 			function del(id){
 				var path= "${pageContext.servletContext.contextPath}/sklad/remove/" + id; 
 				if (confirm("Вы действительно хотите удалить?")){
 					document.location.replace(path);
+					alert("Информация о складе удалена");
 				}		 
 			}			
 		</script>
@@ -51,7 +56,6 @@
 				<img alt=""
 					src="${pageContext.request.contextPath}/resources/img/ntck.png">
 			</div>	
-			
 			<c:if test="${view_edit == 1 }">
 				<span><h2>Склад кладовщика</h2></span>
 			</c:if>  
@@ -75,8 +79,15 @@
 	<div class="main-sklad">
 		<div id='header_items'>	
 			<span> 
-				<a href="${pageContext.servletContext.contextPath}/sklad/view_edit" class="botton">Просмотр складов</a>
-				<a href="${pageContext.request.contextPath}/sklad/sklad_create" class="botton">Создать склад</a>
+				<c:if test="${view_edit != 0 }">
+					<a href="${pageContext.servletContext.contextPath}/sklad/view_edit" class="botton">Просмотр складов</a>
+					<a href="${pageContext.request.contextPath}/sklad/sklad_create" class="botton">Создать склад</a>
+				</c:if>
+				<c:if test="${view_edit == 0 }">
+					<a
+				href="${pageContext.servletContext.contextPath}/sklad/sklad_kladovschik/${id_klad}"
+				class="botton" width="120">Назад к складам</a>
+				</c:if>
 			</span>
 		</div>
 		<br></br>
@@ -84,7 +95,7 @@
 				<div class="form-center" style="border: 2px solid black;">
 					
 						<label for="naim" >Наименование</label>
-						<input type="text" id="naim" name="naim" style="width: 200px;"/>				
+						<input type="text" id="naim" name="naim" style="width: 273px;"/>				
 						<button type="submit" id="botton" class="botton" >Поиск</button>
 
 				</div>
@@ -92,19 +103,22 @@
 		
 		<br></br>
 
-		<table class="tg">
+		<table id="myTable" class="tablesorter tg">
+		<thead>
 			<tr>
-				<th width="120">Ид</th>
-				<th width="120">Наименование</th>
-				<th width="120">Единица измерения</th>
-				<th width="120">Общее количество</th>
-				<th width="60">Признак б/y</th>
-				<th width="60">Средняя цена</th>
+				<th width="50"> Ид</th>
+				<th width="120"> Наименование</th>
+				<th width="120"> Единица измерения</th>
+				<th width="120"> Общее количество</th>
+				<th width="80"> Сап-код</th>
+				<th width="60"> Средняя цена</th>
 				<c:if test="${role.equals('ADMINISTRATOR')}">
 					<th width="60">Редактировать</th>
 					<th width="60">Удалить</th>
 				</c:if>
 			</tr>
+				</thead>
+				<tbody>
 			<c:forEach items="${listKladovschikSklad}" var="list">
 				<tr>
 					<c:if test="${list.isdel != 1}">
@@ -124,6 +138,7 @@
 					</c:if>
 				</tr>
 			</c:forEach>
+			</tbody>
 		</table>
 	</div>
 </body>

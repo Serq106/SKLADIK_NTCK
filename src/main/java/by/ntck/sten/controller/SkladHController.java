@@ -195,6 +195,7 @@ public class SkladHController {
     @RequestMapping(value = "/adds", method = RequestMethod.GET)
     public String add(@RequestParam("id") int id, @RequestParam("kol_vo") float kol_vo, HttpServletRequest request, Model model,
             @RequestParam("fio_zakazchika") String fio_zakazchika, @RequestParam("tab_nom_mol") String tab_nom_mol) {
+        
         int id_kladovshik = ((Kladovshik) request.getSession().getAttribute("kladovshik")).getId();
         int sklad_id = ((Sklad) request.getSession().getAttribute("sklad")).getId_sklad();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
@@ -205,7 +206,7 @@ public class SkladHController {
         if (id != 0) {
             SkladH skladH_ = skladHService.getById(id);
             double kol = skladH_.getKol_vo();
-            if (kol > kol_vo) {
+            if (kol >= kol_vo) {
                 skladH_.setKol_vo(kol - kol_vo);
                 skladHService.update(skladH_);
                 skladH.setKol_vo(kol_vo);

@@ -47,11 +47,13 @@ public class KladovshikController {
 
         model.addAttribute("kladovshik", (kladovshik.equals(EMPTY_KLADOVSHIK)) ? EMPTY_KLADOVSHIK : kladovshik);
         request.getSession().setAttribute("kladovshik", kladovshik);
+        model.addAttribute("note", 1);
         if (kladovshik.getId() != 0) {
             her = 1;
             return "redirect:/sklad/sklad_kladovschik/" + kladovshik.getId();
         } else {
             her = -1;
+            model.addAttribute("note", -1);
             return "redirect:/kladovshik/login";
         }
 

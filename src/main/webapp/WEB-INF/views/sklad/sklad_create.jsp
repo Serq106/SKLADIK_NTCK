@@ -63,11 +63,8 @@
 						<input type="hidden" name="yatheika" value="0"/>
 					</p>
 					<p>
-						<label for="used" class="label">Признак б/y</label>
-						<select id="select" name="used">
-							<option>Да</option>
-							<option>Нет</option>
-						</select>
+						<label for="used" class="label">Сап-код</label>
+						<input type="text" name="used" required pattern="[а-яА-Я0-9]+"/>
 					</p>			
 					<p>
 						<!--<label for="karta" class="label">Номер карточки учета</label>-->

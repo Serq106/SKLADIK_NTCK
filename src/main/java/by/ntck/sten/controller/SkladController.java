@@ -228,6 +228,7 @@ public class SkladController {
         model.addAttribute("listKladovschikSklad", this.skladService.list());
         int id_kladovshik = ((Kladovshik) request.getSession().getAttribute(ATTRIBUTE_KLADOVSHIK)).getId();
         Kladovshik kladocshik = this.kladovshikService.getById(id_kladovshik);
+        model.addAttribute("view_edit", 0);
         model.addAttribute("id_klad", id_kladovshik);
         model.addAttribute("role", this.kladovshikService.getRole(kladocshik.getId()));
 
